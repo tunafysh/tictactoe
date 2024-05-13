@@ -47,14 +47,15 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
           setStrikeClass(strikeClass+" bg-red-500")
           setBoardOpacity(0) //
         }
-      else {
-        if(allTilesFilled) setGameState(gamestate.draw)
-        setGameState(gamestate.playerOWins)
-        setStrikeClass(strikeClass+" bg-green-500")
-
+        else {
+          
+          setGameState(gamestate.playerOWins)
+          setStrikeClass(strikeClass+" bg-green-500")
+          
+        }
+        
       }
-
-    }
+  if(allTilesFilled) setGameState(gamestate.draw)
   }
 }
 
