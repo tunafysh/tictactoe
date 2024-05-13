@@ -2,7 +2,7 @@
 
 import Board from "@/components/board";
 import { ModeToggle } from "@/components/modetoggle";
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction, Dispatch } from "react";
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
@@ -23,7 +23,7 @@ const winningCombinations = [
   {combo: [2,4,6], strikeClass: "strike-diagonal-2"},
 ]
 
-function checkWinner(tiles: string[], setStrikeClass: () => string) {
+function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<string>>) {
   for (const {combo, strikeClass} of winningCombinations){
     const tileValue1 = tiles[combo[0]];
     const tileValue2 = tiles[combo[1]];
@@ -33,16 +33,28 @@ function checkWinner(tiles: string[], setStrikeClass: () => string) {
       tileValue1 !== null &&
       tileValue1 === tileValue2 &&
       tileValue1 === tileValue3
-    ) setStrikeClass(strikeClass);
+    )
+    {
+      if(tileValue1 === PLAYER_X)
+        {
+          setStrikeClass(strikeClass+" bg-red-500")
+        }
+      else if (tileValue1 === PLAYER_O){
+        setStrikeClass(strikeClass+" bg-green-500")
+      }
+      else{
+        setStrikeClass(strikeClass+" bg-orange-500")
+      }
+    }
   }
 }
 
 export default function Home() {
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
-  const [strikeClass, setStrikeClass] = useState("strike-diagonal-1");
+  const [strikeClass, setStrikeClass] = useState("");
   useEffect(() => {
-    checkWinner(tiles, setStrikeClass.toString());
+    checkWinner(tiles, setStrikeClass);
   }, [tiles])
 
   const handleTileClick = (i: number) => {
