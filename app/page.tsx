@@ -1,10 +1,12 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import Board from "@/components/board";
 import GameOver from "@/components/gameover";
 import gamestate from "@/components/gamestate";
 import { ModeToggle } from "@/components/modetoggle";
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
+import Konami from "react-konami-code";
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
@@ -30,28 +32,35 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
     const tileValue1 = tiles[combo[0]];
     const tileValue2 = tiles[combo[1]];
     const tileValue3 = tiles[combo[2]];
-
+    const allTilesFilled = tiles.every((tile) => tile !== null);
+    if(allTilesFilled) setGameState(gamestate.draw)
     if (
       tileValue1 !== null &&
       tileValue1 === tileValue2 &&
       tileValue1 === tileValue3
     )
     {
+      
       if(tileValue1 === PLAYER_X)
         {
           setGameState(gamestate.playerXWins)
           setStrikeClass(strikeClass+" bg-red-500")
           setBoardOpacity(0) //
         }
-      else if (tileValue1 === PLAYER_O){
+      else {
         setGameState(gamestate.playerOWins)
         setStrikeClass(strikeClass+" bg-green-500")
       }
-      else {
-        setBoardOpacity(100)
-        setGameState(gamestate.draw)
-      }
     }
+  }
+}
+
+function secret(setGameState: Dispatch<SetStateAction<any>>, playerO: boolean) {
+  if (playerO) {
+    setGameState(gamestate.playerOWins)
+  }
+  else {
+    setGameState(gamestate.playerXWins)
   }
 }
 
@@ -90,6 +99,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
         <br />
         <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} strikeClass={strikeClass} className={boardOpacity.toString()} gameState={gameState}/>
+        <Konami action={() => secret(setGameState, playerTurn != PLAYER_X)} />
         <br />
         <GameOver gameState={gameState}/>
       </div>

@@ -2,9 +2,9 @@ export default function Tile({ className, value, onClick, playerTurn }: { classN
     let hoverClass= null;
     if (value == null) {
         if (playerTurn == "X") {
-            hoverClass = "hover:after:content-['X'] hover:after:opacity-20 hover:after:text-red-600";
+            hoverClass = "hover:after:content-['X'] hover:after:opacity-20 hover:after:text-red-600 hover:ease-in-out hover:duration-1000";
         } else if (playerTurn == "O") {
-            hoverClass = "hover:after:content-['O'] hover:after:opacity-20 hover:after:text-green-500";
+            hoverClass = "hover:after:content-['O'] hover:after:opacity-20 hover:after:text-green-500 ease-in-out duration-300";
         }
         else{
             return;
