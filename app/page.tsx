@@ -27,35 +27,28 @@ const winningCombinations = [
   {combo: [2,4,6], strikeClass: "strike-diagonal-2"},
 ]
 
-function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<string>>, setBoardOpacity: Dispatch<SetStateAction<number>>, setGameState: Dispatch<SetStateAction<any>>) {
+
+function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<string>>, setGameState: Dispatch<SetStateAction<any>>) {
   for (const {combo, strikeClass} of winningCombinations){
     const tileValue1 = tiles[combo[0]];
     const tileValue2 = tiles[combo[1]];
     const tileValue3 = tiles[combo[2]];
     const allTilesFilled = tiles.every((tile) => tile !== null);
-    
     if (
       tileValue1 !== null &&
       tileValue1 === tileValue2 &&
       tileValue1 === tileValue3
-    )
-    {
-      
-      if(tileValue1 === PLAYER_X)
-        {
-          setGameState(gamestate.playerXWins)
-          setStrikeClass(strikeClass+" bg-red-500")
-          setBoardOpacity(0) //
-        }
-        else {
-          
-          setGameState(gamestate.playerOWins)
-          setStrikeClass(strikeClass+" bg-green-500")
-          
-        }
-        
+    ) {
+      if (tileValue1 === PLAYER_X) {
+        setGameState(gamestate.playerXWins);
+        setStrikeClass(strikeClass + " bg-red-500");
+      } else {
+        setGameState(gamestate.playerOWins);
+        setStrikeClass(strikeClass + " bg-green-500");
       }
-  if(allTilesFilled) setGameState(gamestate.draw)
+    } else if (allTilesFilled) {
+      setGameState(gamestate.draw);
+    }    
   }
 }
 
@@ -73,9 +66,8 @@ export default function Home() {
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
   const [strikeClass, setStrikeClass] = useState("");
   const [gameState, setGameState] = useState(gamestate);
-  const [boardOpacity, setBoardOpacity] = useState(1);
   useEffect(() => {
-    checkWinner(tiles, setStrikeClass, setBoardOpacity, setGameState);
+    checkWinner(tiles, setStrikeClass, setGameState);
   }, [tiles])
 
   const handleTileClick = (i: number) => {
@@ -102,8 +94,8 @@ export default function Home() {
       <div className="self-center justify-center">
         <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
         <br />
-        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} strikeClass={strikeClass} className={boardOpacity.toString()} gameState={gameState}/>
-        <Konami action={() => secret(setGameState, playerTurn != PLAYER_X)} />
+        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} strikeClass={strikeClass} gameState={gameState}/>
+        <Konami action={() => {if (gameState.inProgress) secret(setGameState, playerTurn != PLAYER_X)}} />
         <br />
         <GameOver gameState={gameState}/>
       </div>
