@@ -33,7 +33,7 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
     const tileValue2 = tiles[combo[1]];
     const tileValue3 = tiles[combo[2]];
     const allTilesFilled = tiles.every((tile) => tile !== null);
-    if(allTilesFilled) setGameState(gamestate.draw)
+    
     if (
       tileValue1 !== null &&
       tileValue1 === tileValue2 &&
@@ -51,6 +51,7 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
         setGameState(gamestate.playerOWins)
         setStrikeClass(strikeClass+" bg-green-500")
       }
+if(allTilesFilled) setGameState(gamestate.draw)
     }
   }
 }
