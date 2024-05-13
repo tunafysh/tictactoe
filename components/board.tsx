@@ -14,7 +14,7 @@ export default function Board({ tiles, onTileClick, playerTurn, strikeClass, gam
         }
     }, [gameState]);
     if (!tiles) {
-        return null; // or any other fallback UI you want to show when tiles is undefined
+        return null; // oif(gamestate === "inProgress") {r any other fallback UI you want to show when tiles is undefined
     }
 
     return (

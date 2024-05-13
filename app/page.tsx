@@ -78,8 +78,11 @@ export default function Home() {
     setPlayerTurn((prev) => {
       if (prev === PLAYER_X) {
         return PLAYER_O;
-      } else {
+      } else if (prev === PLAYER_O) {
         return PLAYER_X;
+      }
+      else{
+        return;
       }
     });
   }
