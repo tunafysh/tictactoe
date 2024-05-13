@@ -25,7 +25,7 @@ const winningCombinations = [
   {combo: [2,4,6], strikeClass: "strike-diagonal-2"},
 ]
 
-function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<string>>) {
+function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<string>>, setBoardOpacity: Dispatch<SetStateAction<number>>, setGameState: Dispatch<SetStateAction<any>>) {
   for (const {combo, strikeClass} of winningCombinations){
     const tileValue1 = tiles[combo[0]];
     const tileValue2 = tiles[combo[1]];
@@ -39,10 +39,17 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
     {
       if(tileValue1 === PLAYER_X)
         {
+          setGameState(gamestate.playerXWins)
           setStrikeClass(strikeClass+" bg-red-500")
+          setBoardOpacity(0) //
         }
       else if (tileValue1 === PLAYER_O){
+        setGameState(gamestate.playerOWins)
         setStrikeClass(strikeClass+" bg-green-500")
+      }
+      else {
+        setBoardOpacity(100)
+        setGameState(gamestate.draw)
       }
     }
   }
@@ -52,10 +59,10 @@ export default function Home() {
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
   const [strikeClass, setStrikeClass] = useState("");
-  const [gameState, setGameState] = useState(gamestate.inProgress);
+  const [gameState, setGameState] = useState(gamestate);
   const [boardOpacity, setBoardOpacity] = useState(1);
   useEffect(() => {
-    checkWinner(tiles, setStrikeClass);
+    checkWinner(tiles, setStrikeClass, setBoardOpacity, setGameState);
   }, [tiles])
 
   const handleTileClick = (i: number) => {
@@ -77,12 +84,12 @@ export default function Home() {
         <ModeToggle />
       </div>
       <p className="absolute animate-fade bottom-4 left-4 text-zinc-500">
-        Made with ♥️ by tunafysh
+        Made with ♥️ by Hanan
       </p>
       <div className="self-center justify-center">
         <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
         <br />
-        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} strikeClass={strikeClass} className={boardOpacity.toString()}/>
+        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} strikeClass={strikeClass} className={boardOpacity.toString()} gameState={gameState}/>
         <br />
         <GameOver gameState={gameState}/>
       </div>
