@@ -1,6 +1,8 @@
 "use client";
 
 import Board from "@/components/board";
+import GameOver from "@/components/gameover";
+import gamestate from "@/components/gamestate";
 import { ModeToggle } from "@/components/modetoggle";
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
 
@@ -42,9 +44,6 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
       else if (tileValue1 === PLAYER_O){
         setStrikeClass(strikeClass+" bg-green-500")
       }
-      else{
-        setStrikeClass(strikeClass+" bg-orange-500")
-      }
     }
   }
 }
@@ -53,6 +52,8 @@ export default function Home() {
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
   const [strikeClass, setStrikeClass] = useState("");
+  const [gameState, setGameState] = useState(gamestate.inProgress);
+  const [boardOpacity, setBoardOpacity] = useState(1);
   useEffect(() => {
     checkWinner(tiles, setStrikeClass);
   }, [tiles])
@@ -71,7 +72,7 @@ export default function Home() {
     });
   }
   return (
-    <main className="flex justify-center h-screen">
+  <main className="flex justify-center h-screen">
       <div id="modetoggle" className="absolute animate-fade top-4 right-4">
         <ModeToggle />
       </div>
@@ -81,8 +82,10 @@ export default function Home() {
       <div className="self-center justify-center">
         <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
         <br />
-        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} strikeClass={strikeClass}/>
+        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} strikeClass={strikeClass} className={boardOpacity.toString()}/>
+        <br />
+        <GameOver gameState={gameState}/>
       </div>
     </main>
-  );
+    );
 }

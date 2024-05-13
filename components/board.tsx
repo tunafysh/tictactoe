@@ -1,12 +1,15 @@
 import Strike from "./strike";
 import Tile from "./tile";
+import gamestate from "./gamestate";
 
-export default function Board({ tiles, onTileClick, playerTurn, strikeClass }: {tiles?: string[], onTileClick: (i: number) => void, playerTurn: string, strikeClass: string}) {
+
+
+export default function Board({ tiles, onTileClick, playerTurn, strikeClass, className }: {tiles?: string[], onTileClick: (i: number) => void, playerTurn: string, strikeClass: string, className: string}) {
     if (!tiles) {
         return null; // or any other fallback UI you want to show when tiles is undefined
       }
     return (
-        <div className="grid grid-rows-3 grid-cols-3 relative cursor-pointer">
+        <div className={`grid grid-rows-3 grid-cols-3 relative cursor-pointer ${className}`}>
             <Tile playerTurn={playerTurn} onClick={() => onTileClick(0)} value={tiles[0]} className="border-b-2 border-r-2 border-zinc-400"/>
             <Tile playerTurn={playerTurn} onClick={() => onTileClick(1)} value={tiles[1]} className="border-b-2 border-r-2 border-zinc-400"/>
             <Tile playerTurn={playerTurn} onClick={() => onTileClick(2)} value={tiles[2]} className="border-b-2 border-zinc-400"/>
