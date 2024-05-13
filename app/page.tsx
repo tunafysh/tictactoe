@@ -48,9 +48,10 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
           setBoardOpacity(0) //
         }
       else {
+        if(allTilesFilled) setGameState(gamestate.draw)
         setGameState(gamestate.playerOWins)
         setStrikeClass(strikeClass+" bg-green-500")
-if(allTilesFilled) setGameState(gamestate.draw)
+
       }
 
     }
