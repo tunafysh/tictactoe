@@ -3,14 +3,14 @@ import Tile from "./tile";
 import gamestate from "./gamestate";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-export default function Board({ tiles, onTileClick, playerTurn, strikeClass, gameState }: {tiles?: string[], onTileClick: (i: number) => void, playerTurn: string, strikeClass: string, gameState: {}}) {
+export default function Board({ tiles, onTileClick, playerTurn, strikeClass, gameState, isMobile }: {tiles?: string[], onTileClick: (i: number) => void, playerTurn: string, strikeClass: string, gameState: {}, isMobile: boolean}) {
     const [boardVisible, setBoardVisible] = useState(true);
 
     useEffect(() => {
         if (!(gamestate.draw != gameState && gamestate.playerXWins != gameState && gamestate.playerOWins != gameState)) {
             setTimeout((milliseconds) => {
                 setBoardVisible(false);
-            }, 1500); // 5000 milliseconds = 5 seconds
+            }, !isMobile? 1500 : 1); // 5000 milliseconds = 5 seconds
         }
     }, [gameState]);
     if (!tiles) {

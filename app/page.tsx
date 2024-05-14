@@ -34,6 +34,7 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
     const tileValue2 = tiles[combo[1]];
     const tileValue3 = tiles[combo[2]];
     const allTilesFilled = tiles.every((tile) => tile !== null);
+    console.log(tileValue1)
     if (
       tileValue1 !== null &&
       tileValue1 === tileValue2 &&
@@ -42,11 +43,11 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
       if (tileValue1 === PLAYER_X) {
         setGameState(gamestate.playerXWins);
         setStrikeClass(strikeClass + " bg-red-500");
-      } else {
+      } else if (tileValue1 === PLAYER_O) {
         setGameState(gamestate.playerOWins);
         setStrikeClass(strikeClass + " bg-green-500");
       }
-    } else if (allTilesFilled) {
+     } else if (allTilesFilled) {
       setGameState(gamestate.draw);
     }    
   }
@@ -66,28 +67,43 @@ export default function Home() {
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
   const [strikeClass, setStrikeClass] = useState("");
   const [gameState, setGameState] = useState(gamestate);
+  const [width, setWidth] = useState<number>(window.innerWidth);
+
+  function handleWindowSizeChange() {
+  setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+  window.addEventListener('resize', handleWindowSizeChange);
+  return () => {
+  window.removeEventListener('resize', handleWindowSizeChange);
+  }
+  }, []);
+
+  const isMobile = width <= 768;
   useEffect(() => {
     checkWinner(tiles, setStrikeClass, setGameState);
   }, [tiles])
 
   const handleTileClick = (i: number) => {
-    if (tiles[i] !== null) return;
-    const newTiles = [...tiles];
-    newTiles[i] = playerTurn;
-    setTiles(newTiles);
-    setPlayerTurn((prev) => {
+    if (gamestate.inProgress != gameState.inProgress) return;
+
+      if (tiles[i] !== null) return;
+      const newTiles = [...tiles];
+      newTiles[i] = playerTurn;
+      setTiles(newTiles);
+      setPlayerTurn((prev: string) => {
       if (prev === PLAYER_X) {
         return PLAYER_O;
       } else if (prev === PLAYER_O) {
         return PLAYER_X;
       }
       else{
-        return;
+        return prev
       }
     });
   }
   return (
-  <main className="flex justify-center h-screen">
+  <main className="flex justify-center h-screen w-screen">
       <div id="modetoggle" className="absolute animate-fade top-4 right-4">
         <ModeToggle />
       </div>
@@ -97,7 +113,7 @@ export default function Home() {
       <div className="self-center justify-center">
         <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
         <br />
-        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} strikeClass={strikeClass} gameState={gameState}/>
+        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} strikeClass={strikeClass} gameState={gameState} isMobile={isMobile}/>
         <Konami action={() => {if (gameState.inProgress) secret(setGameState, playerTurn != PLAYER_X)}} />
         <br />
         <GameOver gameState={gameState}/>

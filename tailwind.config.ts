@@ -22,6 +22,11 @@ const config = {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
+      dropShadow: {
+        'green': '0px 0px 10px rgba(1, 195, 141, 0.60)',
+        'orange': '0px 0px 10px rgba(100, 65, 0, 0.60)',
+        'red': '0px 0px 10px rgba(245, 75, 100, 0.80)'
+      },
       
       colors: {
         border: "hsl(var(--border))",

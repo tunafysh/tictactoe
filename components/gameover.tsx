@@ -6,7 +6,7 @@ export default function GameOver({ gameState }: { gameState: {} }) {
         case gamestate.playerXWins:
             return (
             <>
-            <h1 className="text-5xl text-center font-bold text-red-500">X wins</h1>
+            <h1 className="text-5xl text-center font-bold text-red-500 drop-shadow-red">X wins</h1>
             <br />
             <br />
             <div className="flex justify-center ">
@@ -16,7 +16,7 @@ export default function GameOver({ gameState }: { gameState: {} }) {
         case gamestate.playerOWins:
             return (
             <>
-                <h1 className="text-5xl text-center font-bold text-green-500">O wins</h1>
+                <h1 className="text-5xl text-center font-bold text-green-500 drop-shadow-green">O wins</h1>
                 <br />
                 <br />
                 <div className="flex justify-center ">
@@ -26,7 +26,7 @@ export default function GameOver({ gameState }: { gameState: {} }) {
         case gamestate.draw:
             return (
             <>
-                <h1 className="text-5xl text-center font-bold text-orange-500">Draw</h1>
+                <h1 className="text-5xl text-center font-bold text-orange-500 drop-shadow-orange">Draw</h1>
                 <br />
                 <br />
                 <div className="flex justify-center ">
