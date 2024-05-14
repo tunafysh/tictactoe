@@ -67,7 +67,7 @@ export default function Home() {
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
   const [strikeClass, setStrikeClass] = useState("");
   const [gameState, setGameState] = useState(gamestate);
-  const [width, setWidth] = useState<number>(window.innerWidth);
+  const [width, setWidth] = useState<number>(0);
 
   function handleWindowSizeChange() {
   setWidth(window.innerWidth);
