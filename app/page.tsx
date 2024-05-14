@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import Board from "@/components/board";
 import GameOver from "@/components/gameover";
 import gamestate from "@/components/gamestate";
@@ -10,6 +9,8 @@ import Konami from "react-konami-code";
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
+
+const isPhone = typeof window !== 'undefined' ? /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) : false;
 
 const winningCombinations = [
   //rows
@@ -67,19 +68,8 @@ export default function Home() {
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
   const [strikeClass, setStrikeClass] = useState("");
   const [gameState, setGameState] = useState(gamestate);
-  const [width, setWidth] = useState<number>(0);
+  const [isMobile] = useState(isPhone);
 
-  function handleWindowSizeChange() {
-  setWidth(window.innerWidth);
-  }
-  useEffect(() => {
-  window.addEventListener('resize', handleWindowSizeChange);
-  return () => {
-  window.removeEventListener('resize', handleWindowSizeChange);
-  }
-  }, []);
-
-  const isMobile = width <= 768;
   useEffect(() => {
     checkWinner(tiles, setStrikeClass, setGameState);
   }, [tiles])
