@@ -1,6 +1,5 @@
 import gamestate from "./gamestate"
 import { Button } from "./ui/button"
-import Router from "next/router"
 
 export default function GameOver({ gameState }: { gameState: {} }) {
     switch (gameState) {
@@ -11,7 +10,7 @@ export default function GameOver({ gameState }: { gameState: {} }) {
             <br />
             <br />
             <div className="flex justify-center ">
-            <Button onClick={() => Router.reload()}>Play Again</Button>
+            <Button onClick={() => window.location.reload()}>Play Again</Button>
             </div>
             </>)
         case gamestate.playerOWins:
@@ -21,7 +20,7 @@ export default function GameOver({ gameState }: { gameState: {} }) {
                 <br />
                 <br />
                 <div className="flex justify-center ">
-                <Button onClick={() => Router.reload()}>Play Again</Button>
+                <Button onClick={() => window.location.reload()}>Play Again</Button>
                 </div>
             </>)
         case gamestate.draw:
@@ -31,7 +30,7 @@ export default function GameOver({ gameState }: { gameState: {} }) {
                 <br />
                 <br />
                 <div className="flex justify-center ">
-                <Button onClick={() => Router.reload()}>Play Again</Button>
+                <Button onClick={() => window.location.reload()}>Play Again</Button>
                 </div>
             </>)
         default:
