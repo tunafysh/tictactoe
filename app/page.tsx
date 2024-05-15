@@ -3,9 +3,8 @@
 import Board from "@/components/board";
 import GameOver from "@/components/gameover";
 import gamestate from "@/components/gamestate";
-import { ModeToggle } from "@/components/modetoggle";
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
-import Konami from "react-konami-code";
+import Konami from "react-konami-code"
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
@@ -94,12 +93,7 @@ export default function Home() {
   }
   return (
   <main className="flex justify-center h-screen w-screen">
-      <div id="modetoggle" className="absolute animate-fade top-4 right-4">
-        <ModeToggle />
-      </div>
-      <p className="absolute animate-fade bottom-4 left-4 text-zinc-500">
-        Made with ♥️ by Hanan
-      </p>
+      
       <div className="self-center justify-center">
         <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
         <br />
