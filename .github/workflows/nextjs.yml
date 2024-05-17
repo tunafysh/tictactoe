@@ -79,6 +79,8 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
+      - name: capacitor-android-action
+        uses: Narottam04/action-capacitor-android@v1.0.0
 
   # Deployment job
   deploy:
