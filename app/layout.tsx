@@ -4,8 +4,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils"
 import { ModeToggle } from "@/components/modetoggle";
 
-const inter = Inter({ subsets: ["latin"],   variable: "--font-sans" });
 
+const inter = Inter({ subsets: ["latin"],   variable: "--font-sans" });
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -14,6 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+       <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <title>Tic Tac Toe</title>
       </head>
       <body className={cn(
