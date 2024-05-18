@@ -6,8 +6,7 @@ import gamestate from "@/components/gamestate";
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import Konami from "react-konami-code"
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
-import SignIn from "@/components/signin";
-
+import { Stats } from "@/components/stats";
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
@@ -66,7 +65,7 @@ function secret(setGameState: Dispatch<SetStateAction<any>>, playerO: boolean) {
   }
 }
 
-export default function Home() {
+export default function Home({ params }: { params: { player: string } }) {
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
   const [strikeClass, setStrikeClass] = useState("");
@@ -98,7 +97,7 @@ export default function Home() {
   }
   return (
     <main className="flex justify-center h-screen w-screen">
-      <SignIn />
+    <Stats playername={params.player}/>
       <div className="self-center justify-center">
         <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
         <br />
