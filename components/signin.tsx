@@ -12,17 +12,40 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { FormEvent } from "react"
 
-function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
+function onSubmit(event: FormEvent<HTMLFormElement>, form: HTMLFormElement) {
+  e.preventDefault(); // Prevent default form submission
 
-    // Send form data to the API route
-    fetch('/api/player', {
-      method: 'POST',
-      body: formData,
-    })
+        // Get input value
+        const inputValue = document.getElementById("inputField")?.value;
+        if(inputValue === null) return
+
+        // Create a JSON object
+        const data = { inputField: inputValue };
+
+        // Send data to the API
+        try {
+            const response = await fetch("your_api_url", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                console.log("Data sent successfully!");
+            } else {
+                console.error("Error sending data:", response.status);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    });
+  fetch('/api/player', {
+    method: 'POST',
+    body: 
+  });
 }
-
 export default function SignIn() {
     return (
     <Dialog>
