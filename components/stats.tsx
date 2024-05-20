@@ -10,6 +10,10 @@ import {
     DrawerTrigger,
   } from "@/components/ui/drawer"
 
+function capitalize(str: string) {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
 export function Stats ({ playername }: {playername: string}) {
     return (
         <Drawer>
@@ -19,7 +23,7 @@ export function Stats ({ playername }: {playername: string}) {
         <DrawerContent>
           <div className="mx-auto w-full max-w-sm">
             <DrawerHeader>
-              <DrawerTitle>{playername}&apos;s stats</DrawerTitle>
+              <DrawerTitle>{capitalize(playername)}&apos;s stats</DrawerTitle>
               <DrawerDescription>A basic dashboard for your statistics.</DrawerDescription>
             </DrawerHeader>
             <div className="grid grid-rows-3 grid-flow-col border-zinc-500 rounded">
