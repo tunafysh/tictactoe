@@ -12,11 +12,11 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { FormEvent } from "react"
 
-function onSubmit(event: FormEvent<HTMLFormElement>, form: HTMLFormElement) {
-  e.preventDefault(); // Prevent default form submission
+async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault(); // Prevent default form submission
 
         // Get input value
-        const inputValue = document.getElementById("inputField")?.value;
+        const inputValue = document.getElementById("z1")?.innerText;
         if(inputValue === null) return
 
         // Create a JSON object
@@ -39,12 +39,7 @@ function onSubmit(event: FormEvent<HTMLFormElement>, form: HTMLFormElement) {
             }
         } catch (error) {
             console.error("Error:", error);
-        }
-    });
-  fetch('/api/player', {
-    method: 'POST',
-    body: 
-  });
+        };
 }
 export default function SignIn() {
     return (
@@ -53,7 +48,6 @@ export default function SignIn() {
         <Button className="absolute animate-fade top-4 left-4">Sign up</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-      <form onSubmit={onSubmit}> 
         <DialogHeader>
           <DialogTitle>Add user</DialogTitle>
         </DialogHeader>
