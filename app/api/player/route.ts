@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import * as firebase from "firebase/app"
 
 //TODO Add firebase integration
 

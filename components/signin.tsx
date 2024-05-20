@@ -1,7 +1,6 @@
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogFooter,
     DialogTitle,
@@ -16,30 +15,32 @@ async function onSubmit(event: FormEvent<HTMLFormElement>) {
   event.preventDefault(); // Prevent default form submission
 
         // Get input value
-        const inputValue = document.getElementById("z1")?.innerText;
-        if(inputValue === null) return
+        const inputValue = document.getElementById("name")?.innerText;
+        if(inputValue !== null) {
 
-        // Create a JSON object
-        const data = { inputField: inputValue };
-
-        // Send data to the API
-        try {
-            const response = await fetch("your_api_url", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+          
+          // Create a JSON object
+          const data = { inputField: inputValue };
+          
+          // Send data to the API
+          try {
+            const response = await fetch("/api/player", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
                 body: JSON.stringify(data),
-            });
-
-            if (response.ok) {
+              });
+              
+              if (response.ok) {
                 console.log("Data sent successfully!");
-            } else {
+              } else {
                 console.error("Error sending data:", response.status);
-            }
-        } catch (error) {
-            console.error("Error:", error);
-        };
+              }
+            } catch (error) {
+              console.error("Error:", error);
+            };
+          }
 }
 export default function SignIn() {
     return (
@@ -51,6 +52,7 @@ export default function SignIn() {
         <DialogHeader>
           <DialogTitle>Add user</DialogTitle>
         </DialogHeader>
+        <form onSubmit={onSubmit}>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
@@ -62,7 +64,7 @@ export default function SignIn() {
         <DialogFooter>
           <Button type="submit">Sign up</Button>
         </DialogFooter>
-      </form>
+        </form>
       </DialogContent>
     </Dialog>
 
