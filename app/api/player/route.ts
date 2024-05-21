@@ -1,13 +1,30 @@
-import { Elysia } from 'elysia'
+import * as auth from "firebase/auth"
+import * as firestore from "firebase/firestore"
+import { NextRequest, NextResponse } from 'next/server';
 
-const app = new Elysia({prefix: "/api"})
-app.get('/',({ cookie: { player } }: { cookie: { player: { value: string } } }) => {
-    return player.value
-})
+// Handle GET requests
+export async function GET(req: NextRequest) {
+  // Retrieve the value of the "player" cookie
+  const value = req.cookies.get('player')?.value;
+  if(value !== null || undefined){
+    return NextResponse.json({ value });
+  }
+  else {
+    return NextResponse.json({ message: 'Cookie not found'});
+  }
+}
+// Handle POST requests
+export async function POST(request: NextRequest) {
+  const player = await request.text() // Get the value from the request body
 
-app.post("/", (req: Request,{ cookie: { player } }: { cookie: { player: { value: string } } }) => {
-  player.value = String(req.body)
-})
+  // Set the "player" cookie
+  const response = NextResponse.json({ message: 'Cookie set successfully' }, { status: 200 });
+  response.cookies.set({
+      name: 'player',
+      value: player,
+      httpOnly: true,
+      secure: false, // Set to true in production
+  });
 
-export const GET = app.handle 
-export const POST = app.handle 
+  return response;
+}

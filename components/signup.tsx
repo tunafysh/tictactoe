@@ -9,18 +9,15 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { FormEvent } from "react"
+import { FormEvent, useState } from "react"
 
-async function onSubmit(event: FormEvent<HTMLFormElement>) {
-  event.preventDefault(); // Prevent default form submission
-
+async function onSubmit(text: string) {
         // Get input value
-        const inputValue = document.getElementById("name")?.innerText;
+        const inputValue = text
         if(inputValue !== null) {
 
           
           // Create a JSON object
-          const data = { inputField: inputValue };
           
           // Send data to the API
           try {
@@ -29,7 +26,7 @@ async function onSubmit(event: FormEvent<HTMLFormElement>) {
               headers: {
                 "Content-Type": "application/json",
               },
-                body: JSON.stringify(data),
+                "body": `${inputValue}`
               });
               
               if (response.ok) {
@@ -43,6 +40,7 @@ async function onSubmit(event: FormEvent<HTMLFormElement>) {
           }
 }
 export default function SignIn() {
+  const [input, setInput] = useState<string>("");
     return (
     <Dialog>
       <DialogTrigger asChild>
@@ -52,19 +50,17 @@ export default function SignIn() {
         <DialogHeader>
           <DialogTitle>Add user</DialogTitle>
         </DialogHeader>
-        <form onSubmit={onSubmit}>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
               Username
             </Label>
-            <Input id="name" className="col-span-3"/>
+            <Input onChange={(e) => setInput(e.target.value)} className="col-span-3"/>
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Sign up</Button>
+        <Button onClick={() => onSubmit(input)}>Sign up</Button>
         </DialogFooter>
-        </form>
       </DialogContent>
     </Dialog>
 

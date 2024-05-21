@@ -6,8 +6,10 @@ import gamestate from "@/components/gamestate";
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import Konami from "react-konami-code"
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
-import SignIn from "@/components/signin";
-
+import SignIn from "@/components/signup";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button"
+import { useUrl } from "nextjs-current-url"
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
@@ -71,12 +73,20 @@ export default function Home() {
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
   const [strikeClass, setStrikeClass] = useState("");
   const [gameState, setGameState] = useState(gamestate);
+  const router = useRouter();
   const [isMobile] = useState(isPhone);
+  const [user, setUser] = useState("")
 
   useEffect(() => {
     checkWinner(tiles, setStrikeClass, setGameState);
   }, [tiles])
 
+
+  useEffect(() => {
+    fetch('/api/player', {method: "GET"})
+      .then((res) => res.json())
+      .then((text) => setUser(JSON.stringify(text)))
+  }, [])
   const handleTileClick = (i: number) => {
     if (gamestate.inProgress != gameState.inProgress) return;
 
@@ -96,6 +106,9 @@ export default function Home() {
       }
     });
   }
+
+
+  var { name, value} = JSON.parse(user)
   return (
     <main className="flex justify-center h-screen w-screen">
       <SignIn />
@@ -106,6 +119,7 @@ export default function Home() {
         <Konami action={() => {if (gameState.inProgress) secret(setGameState, playerTurn != PLAYER_X)}} />
         <br />
         <GameOver gameState={gameState}/>
+        <Button>{value}</Button>
       </div>
     </main>
     );
