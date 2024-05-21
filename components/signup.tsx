@@ -9,14 +9,16 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { FormEvent, useState } from "react"
+import {  useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 
 async function onSubmit(text: string) {
         // Get input value
         const inputValue = text
         if(inputValue !== null) {
 
-          
+          window.location.reload()
+
           // Create a JSON object
           
           // Send data to the API
@@ -26,11 +28,11 @@ async function onSubmit(text: string) {
               headers: {
                 "Content-Type": "application/json",
               },
-                "body": `${inputValue}`
+              "body": `${inputValue}`
               });
               
               if (response.ok) {
-                console.log("Data sent successfully!");
+                
               } else {
                 console.error("Error sending data:", response.status);
               }
@@ -38,10 +40,11 @@ async function onSubmit(text: string) {
               console.error("Error:", error);
             };
           }
-}
+        }
 export default function SignIn() {
   const [input, setInput] = useState<string>("");
-    return (
+
+  return (
     <Dialog>
       <DialogTrigger asChild>
         <Button className="absolute animate-fade top-4 left-4">Sign up</Button>
@@ -58,11 +61,13 @@ export default function SignIn() {
             <Input onChange={(e) => setInput(e.target.value)} className="col-span-3"/>
           </div>
         </div>
+        
         <DialogFooter>
-        <Button onClick={() => onSubmit(input)}>Sign up</Button>
+        <Button onClick={() => {
+          onSubmit(input)
+          }}>Sign up</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-
     )
 }
