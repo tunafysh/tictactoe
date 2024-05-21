@@ -8,10 +8,7 @@ import Konami from "react-konami-code"
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
 import SignIn from "@/components/signup";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button"
 import { useUrl } from "nextjs-current-url"
-import { validateHeaderName } from "http";
-import { sign } from "crypto";
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
@@ -42,7 +39,6 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
     const tileValue2 = tiles[combo[1]];
     const tileValue3 = tiles[combo[2]];
     const allTilesFilled = tiles.every((tile) => tile !== null);
-    console.log(tileValue1)
     if (
       tileValue1 !== null &&
       tileValue1 === tileValue2 &&
@@ -77,7 +73,7 @@ export default function Home() {
   const [gameState, setGameState] = useState(gamestate);
   const [isMobile] = useState(isPhone);
   const [user, setUser] = useState("")
-  const [signedIn, setSignedIn] = useState(false)
+  const router = useRouter
 
   useEffect(() => {
     checkWinner(tiles, setStrikeClass, setGameState);
@@ -86,23 +82,23 @@ export default function Home() {
 
   useEffect(() => {
     fetch('/api/player', {method: "GET"})
-    .then((res) => res.json())
-    .then((text) => setUser(JSON.stringify(text)))
+    .then((res) => res.text())
+    .then((text) => {
+      setUser(text)
+      
+    if(user != "") {
+       console.log(user)
+       
+        router().replace(useUrl.toString()+``)
+    }
+    else {
+      console.log("not signed in.")
+    }
+  })
   }, [])
 
-  var  value = JSON.parse(user)
-
-  useEffect(() => {
-    if (user !== null && user !== null) {
-      setSignedIn(true)
-    }
-    if(signedIn) {
-      // window.location.href = `}`
-    }
-  }, [signedIn])
   const handleTileClick = (i: number) => {
     if (gamestate.inProgress != gameState.inProgress) return;
-
       if (tiles[i] !== null) return;
       const newTiles = [...tiles];
       newTiles[i] = playerTurn;
@@ -130,7 +126,6 @@ export default function Home() {
         <Konami action={() => {if (gameState.inProgress) secret(setGameState, playerTurn != PLAYER_X)}} />
         <br />
         <GameOver gameState={gameState}/>
-        <Button>{value.value}</Button>
       </div>
     </main>
     );

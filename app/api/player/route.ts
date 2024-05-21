@@ -5,13 +5,9 @@ import { NextRequest, NextResponse } from 'next/server';
 // Handle GET requests
 export async function GET(req: NextRequest) {
   // Retrieve the value of the "player" cookie
-  const cookiename = req.cookies.get('player')?.name;
   const cookievalue = req.cookies.get('player')?.value;
   if(cookievalue !== null || undefined){
-    return NextResponse.json({ 
-     "name": cookiename?.toString(),
-     "value": cookievalue?.toString() 
-    });
+    return new Response(cookievalue)
   }
 }
 // Handle POST requests
