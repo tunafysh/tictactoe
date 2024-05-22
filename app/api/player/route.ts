@@ -27,6 +27,7 @@ export async function POST(request: NextRequest) {
 }
 
 export function DELETE(request: NextRequest) {
-  request.cookies.delete('player')
-  return NextResponse.json({ message: 'Cookie deleted successfully' }, { status: 200 });
+  const response = NextResponse.json({ message: 'Cookie deleted successfully' }, { status: 200 });
+  response.cookies.delete('player');
+  return response;
 }
