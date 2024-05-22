@@ -71,10 +71,18 @@ export default function Home({ params }: { params: { player: string } }) {
   const [strikeClass, setStrikeClass] = useState("");
   const [gameState, setGameState] = useState(gamestate);
   const [isMobile] = useState(isPhone);
+  const [del, setDel] = useState(false);
 
   useEffect(() => {
     checkWinner(tiles, setStrikeClass, setGameState);
   }, [tiles])
+
+  useEffect(() => {
+    if(del) {
+      fetch('/api/player', {method: "DELETE"})
+      .then((res) => window.location.href = "/")
+     }
+    } )
 
   const handleTileClick = (i: number) => {
     if (gamestate.inProgress != gameState.inProgress) return;
@@ -97,7 +105,7 @@ export default function Home({ params }: { params: { player: string } }) {
   }
   return (
     <main className="flex justify-center h-screen w-screen">
-    <Stats playername={params.player}/>
+    <Stats playername={params.player} setDel={setDel}/>
       <div className="self-center justify-center">
         <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
         <br />

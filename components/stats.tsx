@@ -1,3 +1,5 @@
+import { initializeApp } from "firebase/app"
+import { getFirestore} from "firebase/firestore"
 import { Button } from "./ui/button";
 import {
     Drawer,
@@ -9,12 +11,13 @@ import {
     DrawerTitle,
     DrawerTrigger,
   } from "@/components/ui/drawer"
+import { Dispatch, SetStateAction } from "react";
 
 function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-export function Stats ({ playername }: {playername: string}) {
+export function Stats ({ playername, setDel }: {playername: string, setDel: Dispatch<SetStateAction<boolean>>}) {
     return (
         <Drawer>
         <DrawerTrigger asChild>
@@ -41,9 +44,9 @@ export function Stats ({ playername }: {playername: string}) {
                 </p>
             </div>
             <DrawerFooter>
-              <Button>Submit</Button>
+              <Button onClick={() => setDel(true)}>Log Out</Button>
               <DrawerClose asChild>
-                <Button variant="outline">Cancel</Button>
+                <Button variant="outline">Okay</Button>
               </DrawerClose>
             </DrawerFooter>
           </div>

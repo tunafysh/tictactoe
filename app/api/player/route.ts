@@ -5,14 +5,13 @@ import { NextRequest, NextResponse } from 'next/server';
 // Handle GET requests
 export async function GET(req: NextRequest) {
   // Retrieve the value of the "player" cookie
-  const cookievalue = req.cookies.get('player')?.value;
-  if(cookievalue !== null || undefined){
-    return new Response(cookievalue)
-  }
+  const playerCookie = req.cookies.get('player')?.value;
+  return new Response(playerCookie)
 }
+
 // Handle POST requests
 export async function POST(request: NextRequest) {
-  const player = await request.text() // Get the value from the request body
+  const player = await request.text(); // Get the value from the request body
 
   // Set the "player" cookie
   const response = NextResponse.json({ message: 'Cookie set successfully' }, { status: 200 });
@@ -21,7 +20,13 @@ export async function POST(request: NextRequest) {
       value: player,
       httpOnly: true,
       secure: false, // Set to true in production
+      maxAge: 60 * 60 * 24, // 1 day (in seconds)
   });
 
   return response;
+}
+
+export function DELETE(request: NextRequest) {
+  request.cookies.delete('player')
+  return NextResponse.json({ message: 'Cookie deleted successfully' }, { status: 200 });
 }

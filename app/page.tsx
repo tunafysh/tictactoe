@@ -7,8 +7,8 @@ import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import Konami from "react-konami-code"
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
 import SignIn from "@/components/signup";
-import { useRouter } from "next/navigation";
-import { useUrl } from "nextjs-current-url"
+import { redirect } from 'next/navigation';
+import { Red_Rose } from "next/font/google";
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
@@ -72,8 +72,7 @@ export default function Home() {
   const [strikeClass, setStrikeClass] = useState("");
   const [gameState, setGameState] = useState(gamestate);
   const [isMobile] = useState(isPhone);
-  const [user, setUser] = useState("")
-  const router = useRouter
+  const [del, setDel] = useState(false);
 
   useEffect(() => {
     checkWinner(tiles, setStrikeClass, setGameState);
@@ -83,19 +82,17 @@ export default function Home() {
   useEffect(() => {
     fetch('/api/player', {method: "GET"})
     .then((res) => res.text())
-    .then((text) => {
-      setUser(text)
-      
-    if(user != "") {
-       console.log(user)
-       
-        router().replace(useUrl.toString()+``)
-    }
-    else {
-      console.log("not signed in.")
-    }
-  })
-  }, [])
+    .then((text) => {      
+      if(text != "") {
+        console.log(text)
+        window.location.href = "/"+text
+     }
+     else {
+       console.log("not signed in.")
+       console.log(text)
+     }
+   })
+   }, [])
 
   const handleTileClick = (i: number) => {
     if (gamestate.inProgress != gameState.inProgress) return;
