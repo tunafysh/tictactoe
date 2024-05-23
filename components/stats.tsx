@@ -44,7 +44,7 @@ export function Stats ({ playername, setDel }: {playername: string, setDel: Disp
                 </p>
             </div>
             <DrawerFooter>
-              <Button onClick={() => setDel(true)}>Log Out</Button>
+              <Button variant="destructive" onClick={() => setDel(true)}>Log Out</Button>
               <DrawerClose asChild>
                 <Button variant="outline">Okay</Button>
               </DrawerClose>

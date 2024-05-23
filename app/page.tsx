@@ -6,9 +6,7 @@ import gamestate from "@/components/gamestate";
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import Konami from "react-konami-code"
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
-import SignIn from "@/components/signup";
-import { redirect } from 'next/navigation';
-import { Red_Rose } from "next/font/google";
+import { SignIn, SignUp } from "@/components/authui";
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
@@ -114,8 +112,10 @@ export default function Home() {
   }
   
   return (
+    
     <main className="flex justify-center h-screen w-screen">
-      <SignIn />
+      
+      <SignUp />
       <div className="self-center justify-center">
         <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
         <br />

@@ -104,7 +104,8 @@ export default function Home({ params }: { params: { player: string } }) {
     });
   }
   return (
-    <main className="flex justify-center h-screen w-screen">
+    
+    <main className="flex justify-center h-screen w-screen">  
     <Stats playername={params.player} setDel={setDel}/>
       <div className="self-center justify-center">
         <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
