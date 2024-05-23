@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import Board from "@/components/board";
 import GameOver from "@/components/gameover";
@@ -39,6 +39,9 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
     const tileValue2 = tiles[combo[1]];
     const tileValue3 = tiles[combo[2]];
     const allTilesFilled = tiles.every((tile) => tile !== null);
+    if (allTilesFilled) {
+      setGameState(gamestate.draw);
+    } 
     if (
       tileValue1 !== null &&
       tileValue1 === tileValue2 &&
@@ -51,8 +54,6 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
       } else if (tileValue1 === PLAYER_O) {
         setGameState(gamestate.playerOWins);
         setStrikeClass(strikeClass + " bg-green-500");
-      } else if (allTilesFilled  && tileValue1 != PLAYER_X) {
-        setGameState(gamestate.draw);
       }  
      }   
   }
