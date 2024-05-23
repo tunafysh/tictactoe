@@ -74,13 +74,13 @@ export function SignUp({ matchpass }: { matchpass: Dispatch<SetStateAction<boole
           <Label htmlFor="name" className="text-right">
               Password
             </Label>
-            <Input onChange={(e) => setPassword(e.target.value)} className="col-span-3"/>
+            <Input onChange={(e) => setPassword(e.target.value)} className="col-span-3" type="password"/>
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
           <Label htmlFor="name" className="text-right">
              Confirm
             </Label>
-            <Input onChange={(e) => setConfirm(e.target.value)} className="col-span-3"/>
+            <Input onChange={(e) => setConfirm(e.target.value)} className="col-span-3" type="password"/>
           </div>
         </div>
         <Button onClick={() => {

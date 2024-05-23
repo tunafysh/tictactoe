@@ -34,30 +34,39 @@ const winningCombinations = [
 
 
 function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<string>>, setGameState: Dispatch<SetStateAction<any>>) {
-  for (const {combo, strikeClass} of winningCombinations){
+  let winnerFound = false;
+  
+  for (const {combo, strikeClass} of winningCombinations) {
     const tileValue1 = tiles[combo[0]];
     const tileValue2 = tiles[combo[1]];
     const tileValue3 = tiles[combo[2]];
-    const allTilesFilled = tiles.every((tile) => tile !== null);
-    if (allTilesFilled) {
-      setGameState(gamestate.draw);
-    } 
+
     if (
       tileValue1 !== null &&
       tileValue1 === tileValue2 &&
       tileValue1 === tileValue3
     ) {
-      
       if (tileValue1 === PLAYER_X) {
         setGameState(gamestate.playerXWins);
         setStrikeClass(strikeClass + " bg-red-500");
       } else if (tileValue1 === PLAYER_O) {
         setGameState(gamestate.playerOWins);
         setStrikeClass(strikeClass + " bg-green-500");
-      }  
-     }   
+      }
+      winnerFound = true;
+      break; // Exit the loop as we found a winner
+    }
+  }
+
+  if (!winnerFound) {
+    const allTilesFilled = tiles.every((tile) => tile !== null);
+    if (allTilesFilled) {
+      setGameState(gamestate.draw);
+    }
   }
 }
+
+
 
 function secret(setGameState: Dispatch<SetStateAction<any>>, playerO: boolean) {
   if (playerO) {
@@ -82,6 +91,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!matchpass){
+      console.log(matchpass)
       return () => {
         <Alert variant="destructive">
             <ExclamationTriangleIcon className="h-4 w-4" />
