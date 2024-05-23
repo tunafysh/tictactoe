@@ -65,12 +65,6 @@ function secret(setGameState: Dispatch<SetStateAction<any>>, playerO: boolean) {
   }
 }
 
-export function generateStaticParams() {
-  fetch('/api/player', {method: "GET"})
-    .then((res) => res.text())
-    .then((text) => { return { player: text }})
-}
-
 export default function Home({ params }: { params: { player: string } }) {
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
@@ -78,7 +72,6 @@ export default function Home({ params }: { params: { player: string } }) {
   const [gameState, setGameState] = useState(gamestate);
   const [isMobile] = useState(isPhone);
   const [del, setDel] = useState(false);
-  const { player } = params;
 
   useEffect(() => {
     checkWinner(tiles, setStrikeClass, setGameState);
