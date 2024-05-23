@@ -7,6 +7,7 @@ import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import Konami from "react-konami-code"
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
 import { Stats } from "@/components/stats";
+import { BASE_API_URL } from "@/lib/constants";
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
@@ -88,7 +89,7 @@ export default function Home({ params }: { params: { player: string } }) {
 
   useEffect(() => {
     if(del) {
-      fetch('/api/player', {method: "DELETE"})
+      fetch(BASE_API_URL+"/api/player", {method: "DELETE"})
       .then((res) => window.location.href = "/")
      }
     } )

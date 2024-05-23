@@ -9,6 +9,7 @@ import { Dispatch, SetStateAction } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { BASE_API_URL } from "@/lib/constants"
 import {  useState } from "react"
 import { ExclamationTriangleIcon, GitHubLogoIcon } from "@radix-ui/react-icons"
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert"
@@ -25,7 +26,7 @@ async function onSubmit(user: string, pass: string) {
           
           // Send data to the API
           try {
-            const response = await fetch("/api/player", {
+            const response = await fetch(BASE_API_URL+"/api/player", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

@@ -9,6 +9,7 @@ import { Haptics, ImpactStyle } from "@capacitor/haptics";
 import { SignIn, SignUp } from "@/components/authui";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+import { BASE_API_URL } from "@/lib/constants";
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
@@ -105,7 +106,7 @@ export default function Home() {
   }, [matchpass])
 
   useEffect(() => {
-    fetch('/api/player', {method: "GET"})
+    fetch(BASE_API_URL+"/api/player", {method: "GET"})
     .then((res) => res.text())
     .then((text) => {      
       if(text != "") {
