@@ -44,16 +44,17 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
       tileValue1 === tileValue2 &&
       tileValue1 === tileValue3
     ) {
+      
       if (tileValue1 === PLAYER_X) {
         setGameState(gamestate.playerXWins);
         setStrikeClass(strikeClass + " bg-red-500");
       } else if (tileValue1 === PLAYER_O) {
         setGameState(gamestate.playerOWins);
         setStrikeClass(strikeClass + " bg-green-500");
-      }
-     } else if (allTilesFilled) {
-      setGameState(gamestate.draw);
-    }    
+      } else if (allTilesFilled  && tileValue1 != PLAYER_X) {
+        setGameState(gamestate.draw);
+      }  
+     }   
   }
 }
 
