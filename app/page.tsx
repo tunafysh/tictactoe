@@ -7,6 +7,8 @@ import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import Konami from "react-konami-code"
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
 import { SignIn, SignUp } from "@/components/authui";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
@@ -70,12 +72,25 @@ export default function Home() {
   const [strikeClass, setStrikeClass] = useState("");
   const [gameState, setGameState] = useState(gamestate);
   const [isMobile] = useState(isPhone);
-  const [del, setDel] = useState(false);
+  const [matchpass, setMatchPass] = useState(Boolean);
 
   useEffect(() => {
     checkWinner(tiles, setStrikeClass, setGameState);
   }, [tiles])
 
+  useEffect(() => {
+    if (!matchpass){
+      return () => {
+        <Alert variant="destructive">
+            <ExclamationTriangleIcon className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>
+              Passwords do not match. Please try again.
+            </AlertDescription>
+          </Alert>
+      }
+    }
+  }, [matchpass])
 
   useEffect(() => {
     fetch('/api/player', {method: "GET"})
@@ -115,7 +130,7 @@ export default function Home() {
     
     <main className="flex justify-center h-screen w-screen">
       
-      <SignUp />
+      <SignUp matchpass={setMatchPass} />
       <div className="self-center justify-center">
         <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
         <br />

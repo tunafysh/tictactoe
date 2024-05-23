@@ -2,10 +2,10 @@ import {
     Dialog,
     DialogContent,
     DialogHeader,
-    DialogFooter,
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"  
+import { Dispatch, SetStateAction } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -43,7 +43,7 @@ async function onSubmit(user: string, pass: string) {
             };
           }
         }
-export function SignUp() {
+export function SignUp({ matchpass }: { matchpass: Dispatch<SetStateAction<boolean>> }) {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirm, setConfirm] = useState<string>("");
@@ -84,20 +84,15 @@ export function SignUp() {
           </div>
         </div>
         <Button onClick={() => {
-          if(password === confirm) {
+          if( password === confirm) {
+          
             onSubmit(username, password)
+            matchpass(false)
           }
           else {
-            return (<Alert variant="destructive">
-            <ExclamationTriangleIcon className="h-4 w-4" />
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>
-              Passwords do not match. Please try again.
-            </AlertDescription>
-          </Alert>
-          )
+            matchpass(false)
           }
-          }}>Sign up</Button>
+        }}>Sign up</Button>
       </DialogContent>
     </Dialog>
     )
