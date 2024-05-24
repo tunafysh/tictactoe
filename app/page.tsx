@@ -5,7 +5,6 @@ import GameOver from "@/components/gameover";
 import gamestate from "@/components/gamestate";
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import Konami from "react-konami-code"
-import { Haptics, ImpactStyle } from "@capacitor/haptics";
 import { SignIn, SignUp } from "@/components/authui";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
