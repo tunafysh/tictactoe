@@ -125,7 +125,6 @@ export default function Home() {
       const newTiles = [...tiles];
       newTiles[i] = playerTurn;
       setTiles(newTiles);
-      Haptics.impact({style: ImpactStyle.Medium});
       setPlayerTurn((prev: string) => {
       if (prev === PLAYER_X) {
         return PLAYER_O;
