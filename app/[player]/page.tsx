@@ -5,7 +5,6 @@ import GameOver from "@/components/gameover";
 import gamestate from "@/components/gamestate";
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import Konami from "react-konami-code"
-import { Haptics, ImpactStyle } from "@capacitor/haptics";
 import { Stats } from "@/components/stats";
 import { BASE_API_URL } from "@/lib/constants";
 
@@ -101,7 +100,6 @@ export default function Home({ params }: { params: { player: string } }) {
       const newTiles = [...tiles];
       newTiles[i] = playerTurn;
       setTiles(newTiles);
-      Haptics.impact({style: ImpactStyle.Medium});
       setPlayerTurn((prev: string) => {
       if (prev === PLAYER_X) {
         return PLAYER_O;
