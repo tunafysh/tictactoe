@@ -7,12 +7,11 @@ import {
 } from "@/components/ui/dialog"  
 import { Dispatch, SetStateAction } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Input } from "@/components/ui/auth-input"
 import { Label } from "@/components/ui/label"
 import { BASE_API_URL } from "@/lib/constants"
 import {  useState } from "react"
-import { ExclamationTriangleIcon, GitHubLogoIcon } from "@radix-ui/react-icons"
-import { Alert, AlertDescription, AlertTitle } from "./ui/alert"
+import { GitHubLogoIcon } from "@radix-ui/react-icons"
 
 async function onSubmit(user: string, pass: string) {
       // Get input value
