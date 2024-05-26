@@ -5,7 +5,7 @@ import GameOver from "@/components/gameover";
 import gamestate from "@/components/gamestate";
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import Konami from "react-konami-code"
-import { SignupForm } from "@/components/authui";
+import { SignUp } from "@/components/authui";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { BASE_API_URL } from "@/lib/constants";
@@ -141,7 +141,7 @@ export default function Home() {
     
     <main className="flex justify-center h-screen w-screen">
       
-      <SignupForm />
+      <SignUp matchpass={setMatchPass}/>
       <div className="self-center justify-center">
         <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
         <br />
