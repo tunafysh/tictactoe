@@ -28,6 +28,7 @@
     "react-firebase-hooks": "^5.1.1",
     "react-konami-code": "^2.3.0",
     "react-xr": "^1.1.0",
+    "sass": "^1.77.2",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",

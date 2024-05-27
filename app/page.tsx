@@ -6,14 +6,14 @@ import gamestate from "@/components/gamestate";
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import Konami from "react-konami-code"
 import { SignUp } from "@/components/authui";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { BASE_API_URL } from "@/lib/constants";
+import Game from "@/components/game";
+
+const isPhone = typeof window !== 'undefined' ? /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) : false;
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
 
-const isPhone = typeof window !== 'undefined' ? /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) : false;
 
 const winningCombinations = [
   //rows
@@ -90,22 +90,7 @@ export default function Home() {
   }, [tiles])
 
   useEffect(() => {
-    if (!matchpass){
-      console.log(matchpass)
-      return () => {
-        <Alert variant="destructive">
-            <ExclamationTriangleIcon className="h-4 w-4" />
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>
-              Passwords do not match. Please try again.
-            </AlertDescription>
-          </Alert>
-      }
-    }
-  }, [matchpass])
-
-  useEffect(() => {
-    fetch(BASE_API_URL+"/api/player", {method: "GET"})
+    fetch("/api/player", {method: "GET"})
     .then((res) => res.text())
     .then((text) => {      
       if(text != "") {
@@ -138,18 +123,11 @@ export default function Home() {
   }
   
   return (
-    
+        
     <main className="flex justify-center h-screen w-screen">
       
       <SignUp matchpass={setMatchPass}/>
-      <div className="self-center justify-center">
-        <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
-        <br />
-        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} strikeClass={strikeClass} gameState={gameState} isMobile={isMobile}/>
-        <Konami action={() => {if (gameState.inProgress) secret(setGameState, playerTurn != PLAYER_X)}} />
-        <br />
-        <GameOver gameState={gameState}/>
-      </div>
-    </main>
+      <Game isMobile={isMobile} />
+      </main>
     );
 }

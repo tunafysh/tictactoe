@@ -1,18 +1,13 @@
-"use client"
-
-import Board from "@/components/board";
-import GameOver from "@/components/gameover";
-import gamestate from "@/components/gamestate";
-import { useState, useEffect, SetStateAction, Dispatch } from "react";
-import Konami from "react-konami-code"
-import { Stats } from "@/components/stats";
-import { BASE_API_URL } from "@/lib/constants";
-import Game from "@/components/game";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
+import Konami from "react-konami-code";
+import { SignUp } from "./authui";
+import Board from "./board";
+import GameOver from "./gameover";
+import gamestate from "./gamestate";
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
 
-const isPhone = typeof window !== 'undefined' ? /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) : false;
 
 const winningCombinations = [
   //rows
@@ -66,6 +61,7 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
 }
 
 
+
 function secret(setGameState: Dispatch<SetStateAction<any>>, playerO: boolean) {
   if (playerO) {
     setGameState(gamestate.playerOWins)
@@ -75,28 +71,49 @@ function secret(setGameState: Dispatch<SetStateAction<any>>, playerO: boolean) {
   }
 }
 
-export default function Home({ params }: { params: { player: string } }) {
+export default function Game({ isMobile }: { isMobile:boolean }) {
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
   const [strikeClass, setStrikeClass] = useState("");
   const [gameState, setGameState] = useState(gamestate);
-  const [isMobile] = useState(isPhone);
-  const [del, setDel] = useState(false);
+  const [matchpass, setMatchPass] = useState(Boolean);
 
   useEffect(() => {
     checkWinner(tiles, setStrikeClass, setGameState);
   }, [tiles])
 
+  // useEffect(() => {
+  //   if (!matchpass){
+  //     console.log(matchpass)
+  //     return () => {
+  //       <Alert variant="destructive">
+  //           <ExclamationTriangleIcon className="h-4 w-4" />
+  //           <AlertTitle>Error</AlertTitle>
+  //           <AlertDescription>
+  //             Passwords do not match. Please try again.
+  //           </AlertDescription>
+  //         </Alert>
+  //     }
+  //   }
+  // }, [matchpass])
+
   useEffect(() => {
-    if(del) {
-      fetch("/api/player", {method: "DELETE"})
-      .then((res) => window.location.href = "/")
+    fetch("/api/player", {method: "GET"})
+    .then((res) => res.text())
+    .then((text) => {      
+      if(text != "") {
+        console.log(text)
+        window.location.href = "/"+text
      }
-    } )
+     else {
+       console.log("not signed in.")
+       console.log(text)
+     }
+   })
+   }, [])
 
   const handleTileClick = (i: number) => {
     if (gamestate.inProgress != gameState.inProgress) return;
-
       if (tiles[i] !== null) return;
       const newTiles = [...tiles];
       newTiles[i] = playerTurn;
@@ -112,11 +129,15 @@ export default function Home({ params }: { params: { player: string } }) {
       }
     });
   }
+  
   return (
-    
-    <main className="flex justify-center h-screen w-screen">  
-    <Stats playername={params.player} setDel={setDel}/>
-      <Game isMobile={isMobile}/>
-    </main>
+      <div className="self-center justify-center">
+        <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
+        <br />
+        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} strikeClass={strikeClass} gameState={gameState} isMobile={isMobile}/>
+        <Konami action={() => {if (gameState.inProgress) secret(setGameState, playerTurn != PLAYER_X)}} />
+        <br />
+        <GameOver gameState={gameState}/>
+      </div>
     );
 }
