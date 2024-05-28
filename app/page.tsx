@@ -18,7 +18,9 @@ export default function Home() {
       if(typeof window !== 'undefined'){
 
         fetch(window.location.href + "api/player", {method: "DELETE"})
-        .then((res) => window.location.href = "/")
+        .then((res) => res.text()).then((text) => {
+          setUsername(text)
+        })
       }
     }
     }, [del])
