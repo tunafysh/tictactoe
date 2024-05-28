@@ -22,6 +22,11 @@ async function onSubmit(user: string, pass: string) {
       const username = user
       const password = pass
       if(username !== null && password !== null) {
+        if (username.length <= 8 || password.length <= 8) {
+          console.log("Username and password must be at least 8 characters long");
+          console.error("Username and password must be at least 8 characters long");
+          return
+        }
 
         window.location.reload()
 
@@ -50,7 +55,7 @@ async function onSubmit(user: string, pass: string) {
         return (
           <>
             <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-green-500 to-transparent" />
-            <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
+            <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-red-500 to-transparent" />
           </>
         );
       };
@@ -113,42 +118,33 @@ return (
         <Label htmlFor="name" className="text-left">
             Username
           </Label>
-          <Input onChange={(e) => setUsername(e.target.value)} className="col-span-3"/>
+          <Input onChange={(e) => setUsername(e.target.value)} className="col-span-3" type="text"/>
         </div>
         <div className="grid items-center gap-4">
         <Label htmlFor="name" className="text-left">
             Password
           </Label>
-          <Input onChange={(e) => setPassword(e.target.value)} className="col-span-3" type="password"/>
+          <Input onChange={(e) => setPassword(e.target.value)} className="col-span-3" type="password" min={8} max={16}/>
         </div>
         <div className="grid items-center gap-2">
         <Label htmlFor="name" className="text-left">
            Confirm
           </Label>
-          <Input onChange={(e) => setConfirm(e.target.value)} className="col-span-3" type="password"/>
+          <Input onChange={(e) => setConfirm(e.target.value)} className="col-span-3" type="password" min={8} max={16}/>
         </div>
       </div>
       <Button onClick={() => {
         if( password === confirm) {
         
+          matchpass(true)
           onSubmit(username, password)
-          matchpass(false)
         }
         else {
+          alert("Passwords don't match!")
           matchpass(false)
         }
       }}>Sign up</Button>
     </DialogContent>
   </Dialog>
   )
-}
-
-export function SignIn() {
-return (
-  <Dialog>
-    <DialogTrigger asChild>
-      <Button className="absolute animate-fade top-4 left-4">Sign in</Button>
-    </DialogTrigger>
-  </Dialog>
-)
 }

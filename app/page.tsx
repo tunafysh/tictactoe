@@ -15,13 +15,10 @@ export default function Home() {
 
   useEffect(() => {
     if(del) {
-      if(typeof window !== 'undefined'){
-
         fetch(window.location.href + "api/player", {method: "DELETE"})
         .then((res) => res.text()).then((text) => {
-          setUsername(text)
+          window.location.reload()
         })
-      }
     }
     }, [del])
     

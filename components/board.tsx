@@ -19,7 +19,7 @@ export default function Board({ tiles, onTileClick, playerTurn, strikeClass, gam
 
     return (
         <div className={`relative cursor-pointer ${boardVisible ? 'grid' : 'hidden'} grid-rows-3 grid-cols-3`}>
-            <Tile playerTurn={playerTurn} onClick={() => onTileClick(0)} value={tiles[0]} className="border-b-2 border-r-2 border-zinc-400" gamestate={gameState}/>
+            <Tile playerTurn={playerTurn} onClick={() => onTileClick(0)} value={tiles[0]} className='border-b-2 border-r-2 border-zinc-400' gamestate={gameState}/>
             <Tile playerTurn={playerTurn} onClick={() => onTileClick(1)} value={tiles[1]} className="border-b-2 border-r-2 border-zinc-400" gamestate={gameState}/>
             <Tile playerTurn={playerTurn} onClick={() => onTileClick(2)} value={tiles[2]} className="border-b-2 border-zinc-400" gamestate={gameState}/>
             <Tile playerTurn={playerTurn} onClick={() => onTileClick(3)} value={tiles[3]} className="border-b-2 border-r-2 border-zinc-400" gamestate={gameState}/>
