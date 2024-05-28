@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
 // Handle POST requests
 export async function POST(request: NextRequest) {
   const player = await request.text(); // Get the value from the request body
-  if (player != ""){
+  if (player == ""){
     const response = NextResponse.json({ message: 'Invalid name' }, { status: 200 });
     return response
   }

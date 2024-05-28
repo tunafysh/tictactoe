@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { SignUp } from "@/components/authui";
 import Game from "@/components/game";
 import { Stats } from "@/components/stats";
-import { Label } from "@/components/ui/label";
 
 const isPhone = typeof window !== 'undefined' ? /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) : false;
 
@@ -16,31 +15,36 @@ export default function Home() {
 
   useEffect(() => {
     if(del) {
-      fetch("https://o-vs-x.vercel.app/api/player", {method: "DELETE"})
-      .then((res) => window.location.href = "/")
-     }
-    }, [del])
+      if(typeof window !== 'undefined'){
 
-  useEffect(() => {
-    fetch("https://o-vs-x.vercel.app/api/player", {method: "GET"})
-    .then((res) => res.text())
-    .then((text) => {      
-      if(text != "") {
-        console.log(text)
-        setUsername(text)
-     }
-     else {
-       console.log("not signed in.")
-       console.log(text)
-     }
-   })
-   }, [])
+        fetch(window.location.href + "api/player", {method: "DELETE"})
+        .then((res) => window.location.href = "/")
+      }
+    }
+    }, [del])
+    
+    useEffect(() => {
+      if(typeof window !== 'undefined'){
+
+        fetch(window.location.href + "api/player", {method: "GET"})
+      .then((res) => res.text())
+      .then((text) => {      
+        if(text != "") {
+          console.log(text)
+          setUsername(text)
+        }
+        else {
+          console.log("not signed in.")
+          console.log(text)
+        }
+        })
+        }
+      }, [])
 
   return (
         
     <main className="flex justify-center h-screen w-screen">
       {username==undefined || username=="" ? <SignUp matchpass={setMatchPass} /> : <Stats playername={username} setDel={setDel} />}
-      {typeof window !== 'undefined' ? <Label>{window.location.href}</Label>: <></>}
       <Game isMobile={isMobile} />
       </main>
     );

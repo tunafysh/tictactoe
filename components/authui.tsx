@@ -17,23 +17,22 @@ import {
 } from "@tabler/icons-react";
 
 async function onSubmit(user: string, pass: string) {
-      // Get input value
+  if(typeof window !== 'undefined'){
+  // Get input value
       const username = user
       const password = pass
       if(username !== null && password !== null) {
 
         window.location.reload()
 
-        // Create a JSON object
-        
-        // Send data to the API
         try {
-          const response = await fetch("https://o-vs-x.vercel.app/api/player", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            "body": `${username}`
+            
+            const response = await fetch(window.location.href+"api/player", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              "body": `${username}`
             });
             
             if (response.ok) {
@@ -45,6 +44,7 @@ async function onSubmit(user: string, pass: string) {
             console.error("Error:", error);
           };
         }
+      }
       }
       const BottomGradient = () => {
         return (
