@@ -10,17 +10,21 @@ export async function GET(req: NextRequest) {
 // Handle POST requests
 export async function POST(request: NextRequest) {
   const player = await request.text(); // Get the value from the request body
+  if (player != ""){
+    const response = NextResponse.json({ message: 'Invalid name' }, { status: 200 });
+    return response
+  }
 
-  // Set the "player" cookie
-  const response = NextResponse.json({ message: 'Cookie set successfully' }, { status: 200 });
-  response.cookies.set({
+    // Set the "player" cookie
+    const response = NextResponse.json({ message: 'Cookie set successfully' }, { status: 200 });
+    response.cookies.set({
       name: 'player',
       value: player,
       httpOnly: true,
       secure: false, // Set to true in production
-  });
-
-  return response;
+    });
+    
+    return response;
 }
 
 export function DELETE(request: NextRequest) {
