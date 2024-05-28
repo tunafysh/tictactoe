@@ -40,7 +40,7 @@ export default function Home() {
         
     <main className="flex justify-center h-screen w-screen">
       {username==undefined || username=="" ? <SignUp matchpass={setMatchPass} /> : <Stats playername={username} setDel={setDel} />}
-      {typeof window !== 'undefined' ? <Label>window.location.href</Label>: <></>}
+      {typeof window !== 'undefined' ? <Label>{window.location.href}</Label>: <></>}
       <Game isMobile={isMobile} />
       </main>
     );
