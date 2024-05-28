@@ -1,5 +1,3 @@
-import * as auth from "firebase/auth"
-import * as firestore from "firebase/firestore"
 import { NextRequest, NextResponse } from 'next/server';
 
 // Handle GET requests

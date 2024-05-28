@@ -16,13 +16,13 @@ export default function Home() {
 
   useEffect(() => {
     if(del) {
-      fetch("/api/player", {method: "DELETE"})
+      fetch("https://o-vs-x.vercel.app/api/player", {method: "DELETE"})
       .then((res) => window.location.href = "/")
      }
     }, [del])
 
   useEffect(() => {
-    fetch("/api/player", {method: "GET"})
+    fetch("https://o-vs-x.vercel.app/api/player", {method: "GET"})
     .then((res) => res.text())
     .then((text) => {      
       if(text != "") {

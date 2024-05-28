@@ -28,7 +28,7 @@ async function onSubmit(user: string, pass: string) {
         
         // Send data to the API
         try {
-          const response = await fetch("/api/player", {
+          const response = await fetch("https://o-vs-x.vercel.app/api/player", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -58,6 +58,7 @@ export function SignUp({ matchpass }: { matchpass: Dispatch<SetStateAction<boole
 const [username, setUsername] = useState<string>("");
 const [password, setPassword] = useState<string>("");
 const [confirm, setConfirm] = useState<string>("");
+let date = new Date()
 
 return (
   <Dialog>
@@ -89,7 +90,7 @@ return (
             </span>
             <BottomGradient />
           </button>
-          <button
+          {date.getMonth() == 3 && date.getDate() == 1? <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
           >
@@ -99,7 +100,9 @@ return (
             </span>
             <BottomGradient />
             </button>
-            </div>
+            : <></>}
+          
+          </div>
       <div className="flex flex-row items-center justify-between">
       <hr className=" w-24"/>
         <p className="text-center break-keep text-nowrap"> or the traditional way</p>
