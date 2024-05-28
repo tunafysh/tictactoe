@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import Konami from "react-konami-code";
-import { SignUp } from "./authui";
 import Board from "./board";
 import GameOver from "./gameover";
 import gamestate from "./gamestate";
@@ -76,7 +75,6 @@ export default function Game({ isMobile }: { isMobile:boolean }) {
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
   const [strikeClass, setStrikeClass] = useState("");
   const [gameState, setGameState] = useState(gamestate);
-  const [matchpass, setMatchPass] = useState(Boolean);
 
   useEffect(() => {
     checkWinner(tiles, setStrikeClass, setGameState);
@@ -96,21 +94,6 @@ export default function Game({ isMobile }: { isMobile:boolean }) {
   //     }
   //   }
   // }, [matchpass])
-
-  useEffect(() => {
-    fetch("/api/player", {method: "GET"})
-    .then((res) => res.text())
-    .then((text) => {      
-      if(text != "") {
-        console.log(text)
-        window.location.href = "/"+text
-     }
-     else {
-       console.log("not signed in.")
-       console.log(text)
-     }
-   })
-   }, [])
 
   const handleTileClick = (i: number) => {
     if (gamestate.inProgress != gameState.inProgress) return;

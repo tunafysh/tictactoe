@@ -20,7 +20,6 @@ export async function POST(request: NextRequest) {
       value: player,
       httpOnly: true,
       secure: false, // Set to true in production
-      maxAge: 60 * 60 * 24, // 1 day (in seconds)
   });
 
   return response;
