@@ -7,7 +7,6 @@ import gamestate from "./gamestate";
 const PLAYER_X = "X";
 const PLAYER_O = "O";
 
-
 const winningCombinations = [
   //rows
   {combo: [0,1,2], strikeClass: "strike-row-1"},
@@ -24,7 +23,22 @@ const winningCombinations = [
   {combo: [2,4,6], strikeClass: "strike-diagonal-2"},
 ]
 
+function BOT(tiles: string[], setTiles: Dispatch<SetStateAction<string[]>>) {
+  let availableSpots = [];
+  for (let i = 0; i < tiles.length; i++) {
+    if (tiles[i] === null) {
+      availableSpots.push(i);
+    }
+  }
 
+  if (availableSpots.length > 0) {
+    let randomIndex = Math.floor(Math.random() * availableSpots.length);
+    let botMove = availableSpots[randomIndex];
+    let newTiles = [...tiles];
+    newTiles[botMove] = PLAYER_O; // Assuming the bot is PLAYER_O
+    setTiles(newTiles);
+  }
+}
 
 function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<string>>, setGameState: Dispatch<SetStateAction<any>>) {
   let winnerFound = false;
@@ -59,8 +73,6 @@ function checkWinner(tiles: string[], setStrikeClass: Dispatch<SetStateAction<st
   }
 }
 
-
-
 function secret(setGameState: Dispatch<SetStateAction<any>>, playerO: boolean) {
   if (playerO) {
     setGameState(gamestate.playerOWins)
@@ -70,9 +82,9 @@ function secret(setGameState: Dispatch<SetStateAction<any>>, playerO: boolean) {
   }
 }
 
-export default function Game({ isMobile }: { isMobile:boolean }) {
+export default function Single({ isMobile }: { isMobile:boolean }) {
   const [tiles, setTiles] = useState(Array(9).fill(null));
-  const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
+  const [playerTurn] = useState(PLAYER_X);
   const [strikeClass, setStrikeClass] = useState("");
   const [gameState, setGameState] = useState(gamestate);
 
@@ -80,47 +92,24 @@ export default function Game({ isMobile }: { isMobile:boolean }) {
     checkWinner(tiles, setStrikeClass, setGameState);
   }, [tiles])
 
-  // useEffect(() => {
-  //   if (!matchpass){
-  //     console.log(matchpass)
-  //     return () => {
-  //       <Alert variant="destructive">
-  //           <ExclamationTriangleIcon className="h-4 w-4" />
-  //           <AlertTitle>Error</AlertTitle>
-  //           <AlertDescription>
-  //             Passwords do not match. Please try again.
-  //           </AlertDescription>
-  //         </Alert>
-  //     }
-  //   }
-  // }, [matchpass])
-
   const handleTileClick = (i: number) => {
-    if (gamestate.inProgress != gameState.inProgress) return;
-      if (tiles[i] !== null) return;
-      const newTiles = [...tiles];
-      newTiles[i] = playerTurn;
-      setTiles(newTiles);
-      setPlayerTurn((prev: string) => {
-      if (prev === PLAYER_X) {
-        return PLAYER_O;
-      } else if (prev === PLAYER_O) {
-        return PLAYER_X;
-      }
-      else{
-        return prev
-      }
-    });
+    if (gameState.inProgress != gamestate.inProgress) return;
+    if (tiles[i] !== null) return;
+    const newTiles = [...tiles];
+    newTiles[i] = playerTurn;
+    setTiles(newTiles);
+    if(gameState.inProgress == gamestate.inProgress) BOT(newTiles, setTiles);
   }
   
   return (
-      <div className="self-center justify-center">
-        <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
-        <br />
-        <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} strikeClass={strikeClass} gameState={gameState} isMobile={isMobile}/>
-        <Konami action={() => {if (gameState.inProgress) secret(setGameState, playerTurn != PLAYER_X)}} />
-        <br />
-        <GameOver gameState={gameState}/>
-      </div>
-    );
+    <div className="self-center justify-center">
+      <h1 className="text-4xl font-bold text-center">Tic Tac Toe</h1>
+      <h2 className="font-bold text-center">Singleplayer</h2>
+      <br />
+      <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} strikeClass={strikeClass} gameState={gameState} isMobile={isMobile}/>
+      <Konami action={() => {if (gameState.inProgress) secret(setGameState, playerTurn != PLAYER_X)}} />
+      <br />
+      <GameOver gameState={gameState}/>
+    </div>
+  );
 }
