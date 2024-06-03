@@ -2,9 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { SignUp } from "@/components/authui";
-import Local from "@/components/localengine";
-import Single from "@/components/singleengine";
-import Multi from "@/components/multiengine";
+import { Toaster, toast } from "sonner";
 import { Stats } from "@/components/stats";
 import MainMenu from "@/components/mainmenu";
 
@@ -48,6 +46,7 @@ export default function Home() {
     <main className="flex justify-center h-screen w-screen">
       {username==undefined || username=="" ? <SignUp matchpass={setMatchPass} /> : <Stats playername={username} setDel={setDel} />}
       <MainMenu isMobile={isMobile} />
+      <Toaster richColors position="top-center" />
       </main>
     );
 }

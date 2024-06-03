@@ -15,6 +15,7 @@ import {
   IconBrandGoogle,
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
+import { toast } from "sonner"
 
 async function onSubmit(user: string, pass: string) {
   if(typeof window !== 'undefined'){
@@ -23,8 +24,7 @@ async function onSubmit(user: string, pass: string) {
       const password = pass
       if(username !== null && password !== null) {
         if (username.length <= 8 || password.length <= 8) {
-          console.log("Username and password must be at least 8 characters long");
-          console.error("Username and password must be at least 8 characters long");
+          toast.error("Username and password must be at least 8 characters long")
           return
         }
 
