@@ -20,6 +20,7 @@ function capitalize(str: string) {
 
 export function Stats ({ setDel }: { setDel: Dispatch<SetStateAction<boolean>>}) {
   const playername = prisma.player.findFirst({ where: { name: { not: null } } }).then((player:  | null) => player?.name ?? "no player")
+  
     async function deletePlayer() {
         await prisma.player.delete({ where: { name: playername } })
         setDel(true)
