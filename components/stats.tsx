@@ -1,5 +1,4 @@
-import { initializeApp } from "firebase/app"
-import { getFirestore} from "firebase/firestore"
+import { PrismaClient } from "@prisma/client"
 import { Button } from "./ui/button";
 import {
     Drawer,
@@ -13,11 +12,19 @@ import {
   } from "@/components/ui/drawer"
 import { Dispatch, SetStateAction } from "react";
 
+const prisma = new PrismaClient()
+
 function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-export function Stats ({ playername, setDel }: {playername: string, setDel: Dispatch<SetStateAction<boolean>>}) {
+export function Stats ({ setDel }: { setDel: Dispatch<SetStateAction<boolean>>}) {
+  const playername = prisma.player.findFirst({ where: { name: { not: null } } }).then((player:  | null) => player?.name ?? "no player")
+    async function deletePlayer() {
+        await prisma.player.delete({ where: { name: playername } })
+        setDel(true)
+    }
+
     return (
         <Drawer>
         <DrawerTrigger asChild>
