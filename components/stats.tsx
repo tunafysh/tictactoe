@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client"
+import { sql } from "@vercel/postgres"
 import { Button } from "./ui/button";
 import {
     Drawer,
@@ -12,17 +12,16 @@ import {
   } from "@/components/ui/drawer"
 import { Dispatch, SetStateAction } from "react";
 
-const prisma = new PrismaClient()
+const rows = async () => sql`SELECT * FROM Player`.then((res) => res).then((res) => res.rows[0])
 
 function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
 export function Stats ({ setDel }: { setDel: Dispatch<SetStateAction<boolean>>}) {
-  const playername = prisma.player.findFirst({ where: { name: { not: null } } }).then((player:  | null) => player?.name ?? "no player")
   
     async function deletePlayer() {
-        await prisma.player.delete({ where: { name: playername } })
+
         setDel(true)
     }
 
@@ -34,7 +33,7 @@ export function Stats ({ setDel }: { setDel: Dispatch<SetStateAction<boolean>>})
         <DrawerContent>
           <div className="mx-auto w-full max-w-sm">
             <DrawerHeader>
-              <DrawerTitle>{capitalize(playername)}&apos;s stats</DrawerTitle>
+              <DrawerTitle>{capitalize()}&apos;s stats</DrawerTitle>
               <DrawerDescription>A basic dashboard for your statistics.</DrawerDescription>
             </DrawerHeader>
             <div className="grid grid-rows-3 grid-flow-col border-zinc-500 rounded">
