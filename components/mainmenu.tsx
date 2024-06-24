@@ -9,12 +9,12 @@ export default function MainMenu({ isMobile }: { isMobile:boolean }) {
     if(Mode == ""){
 
         return (
-            <main className="self-center justify-center">
-                <Button onClick={() => setMode("single")}>Singleplayer</Button>
+            <main className="flex-row self-center justify-center items-center">
+                <Button onClick={() => setMode("single")} className="mb-4">Singleplayer</Button>
                 <br></br>
-                <Button onClick={() => setMode("multi")}>Multiplayer</Button>
+                <Button onClick={() => setMode("multi")} className="mb-4">Multiplayer</Button>
                 <br></br>
-                <Button onClick={() => setMode("local")}>Local</Button>
+                <Button onClick={() => setMode("local")} className="mb-4">Local</Button>
             </main>
         );
     }
