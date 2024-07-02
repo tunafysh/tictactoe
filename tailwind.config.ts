@@ -38,6 +38,9 @@ const config = {
       },
       
       colors: {
+        ig1: "#f9ce34",
+        ig2: "#ee2a7b",
+        ig3: "#6228d7",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

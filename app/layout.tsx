@@ -26,6 +26,7 @@ export default function RootLayout({
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange>
+
             <div id="modetoggle" className="absolute animate-fade top-4 right-4">
               <ModeToggle />
             </div>

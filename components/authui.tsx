@@ -13,6 +13,7 @@ import {  useState } from "react"
 import {
   IconBrandGithub,
   IconBrandGoogle,
+  IconBrandInstagram,
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
 import { toast } from "sonner"
@@ -51,7 +52,30 @@ async function onSubmit(user: string, pass: string) {
         }
       }
       }
-      const BottomGradient = () => {
+      const GoogleBottomGradient = () => {
+        return (
+          <>
+            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-[57%] -bottom-px inset-x-0 bg-gradient-to-r from-blue-500 via-red-500 to-transparent" />
+            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute left-[40%] h-px w-[57%] mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-yellow-500 to-green-500" />
+            
+          </>
+        );
+      };
+      const GithubBottomGradient = () => {
+        return (
+          <>
+            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-slate-950 dark:via-slate-50 to-transparent" />
+            </>
+        );
+      };
+      const IgBottomGradient = () => {
+        return (
+          <>
+            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-[97%] -bottom-px inset-x-0 bg-gradient-to-r from-ig1 via-ig2 to-ig3" />
+          </>
+        );
+      };
+      const OfBottomGradient = () => {
         return (
           <>
             <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-green-500 to-transparent" />
@@ -79,22 +103,34 @@ return (
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
           >
-            <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+            <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              GitHub
+            Google
             </span>
-            <BottomGradient />
+            <GoogleBottomGradient />
           </button>
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
           >
-            <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+            <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              Google
+              GitHub
             </span>
-            <BottomGradient />
+            <GithubBottomGradient />
           </button>
+
+          <button
+            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+            type="submit"
+          >
+            <IconBrandInstagram className="h-4 w-4 text-neutral-800 dark:text-neutral-300"/>
+            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
+              Instagram
+            </span>
+            <IgBottomGradient />
+          </button>
+
           {date.getMonth() == 3 && date.getDate() == 1? <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
@@ -103,7 +139,7 @@ return (
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
               OnlyFans
             </span>
-            <BottomGradient />
+            <OfBottomGradient />
             </button>
             : <></>}
           
