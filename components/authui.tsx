@@ -55,8 +55,14 @@ async function onSubmit(user: string, pass: string) {
       const GoogleBottomGradient = () => {
         return (
           <>
-            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-[57%] -bottom-px inset-x-0 bg-gradient-to-r from-blue-500 via-red-500 to-transparent" />
-            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute left-[40%] h-px w-[57%] mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-yellow-500 to-green-500" />
+            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute left-[-1%] h-px w-[25%] -bottom-px inset-x-0 bg-blue-500" />
+            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute left-[24%] h-px w-[25%] mx-auto -bottom-px inset-x-10 bg-red-500" />
+            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px left-[49%] w-[25%] -bottom-px inset-x-0 bg-yellow-500" />
+            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute left-[72%] h-px w-[25%] mx-auto -bottom-px inset-x-10 bg-green-500" />
+            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute left-[-1%] h-px w-[24%] -bottom-px inset-x-0 bg-blue-500 blur-lg" />
+            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute left-[24%] h-px w-[25%] mx-auto -bottom-px inset-x-10 bg-red-500 blur-lg" />
+            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px left-[49%] w-[25%] -bottom-px inset-x-0 bg-yellow-500 blur-lg" />
+            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute left-[72%] h-px w-[25%] mx-auto -bottom-px inset-x-10 bg-green-500 blur-lg" />
             
           </>
         );
@@ -65,6 +71,7 @@ async function onSubmit(user: string, pass: string) {
         return (
           <>
             <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-slate-950 dark:via-slate-50 to-transparent" />
+            <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-slate-950 dark:via-slate-50 to-transparent left-2" />
             </>
         );
       };
@@ -72,18 +79,19 @@ async function onSubmit(user: string, pass: string) {
         return (
           <>
             <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-[97%] -bottom-px inset-x-0 bg-gradient-to-r from-ig1 via-ig2 to-ig3" />
+            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-[97%] -bottom-px inset-x-10 bg-gradient-to-r left-2 from-ig1 via-ig2 to-ig3 blur-sm" />
           </>
         );
       };
       const OfBottomGradient = () => {
         return (
           <>
-            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-green-500 to-transparent" />
-            <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-red-500 to-transparent" />
+            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-teal-500 to-transparent" />
+            <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-teal-500 to-transparent" />
           </>
         );
       };
-export function SignUp({ matchpass }: { matchpass: Dispatch<SetStateAction<boolean>> }) {
+export function LoginForm({ matchpass }: { matchpass: Dispatch<SetStateAction<boolean>> }) {
 const [username, setUsername] = useState<string>("");
 const [password, setPassword] = useState<string>("");
 const [confirm, setConfirm] = useState<string>("");
@@ -170,15 +178,7 @@ return (
         </div>
       </div>
       <Button onClick={() => {
-        if( password === confirm) {
-        
-          matchpass(true)
-          onSubmit(username, password)
-        }
-        else {
-          alert("Passwords don't match!")
-          matchpass(false)
-        }
+       
       }}>Sign up</Button>
     </DialogContent>
   </Dialog>
