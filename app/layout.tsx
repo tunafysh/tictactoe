@@ -3,10 +3,15 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils"
 import { ModeToggle } from "@/components/modetoggle";
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-
+import { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"],   variable: "--font-sans" });
+
+export const metadata: Metadata = {
+  title: "Tic Tac Toe",
+  description: "A game made by me in Next js that is held together by hopes, dreams and duct-tape.",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{

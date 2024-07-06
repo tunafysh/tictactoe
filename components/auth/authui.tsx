@@ -18,40 +18,6 @@ import {
 } from "@tabler/icons-react";
 import { toast } from "sonner"
 
-async function onSubmit(user: string, pass: string) {
-  if(typeof window !== 'undefined'){
-  // Get input value
-      const username = user
-      const password = pass
-      if(username !== null && password !== null) {
-        if (username.length <= 8 || password.length <= 8) {
-          toast.error("Username and password must be at least 8 characters long")
-          return
-        }
-
-        window.location.reload()
-
-        try {
-            
-            const response = await fetch(window.location.href+"api/player", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              "body": `${username}`
-            });
-            
-            if (response.ok) {
-              
-            } else {
-              console.error("Error sending data:", response.status);
-            }
-          } catch (error) {
-            console.error("Error:", error);
-          };
-        }
-      }
-      }
       const GoogleBottomGradient = () => {
         return (
           <>
@@ -91,7 +57,10 @@ async function onSubmit(user: string, pass: string) {
           </>
         );
       };
-export function LoginForm({ matchpass }: { matchpass: Dispatch<SetStateAction<boolean>> }) {
+
+
+
+export default function LoginForm() {
 const [username, setUsername] = useState<string>("");
 const [password, setPassword] = useState<string>("");
 const [confirm, setConfirm] = useState<string>("");

@@ -1,5 +1,5 @@
-import gamestate from "./gamestate"
-import { Button } from "./ui/button"
+import gamestate from "../definitions/gamestate"
+import { Button } from "../ui/button"
 
 export default function GameOver({ gameState }: { gameState: {} }) {
     switch (gameState) {

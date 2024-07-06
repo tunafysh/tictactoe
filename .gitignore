@@ -13,6 +13,9 @@
 /.next/
 /out/
 
+bun.lockb
+package-lock.json
+
 # production
 /build
 

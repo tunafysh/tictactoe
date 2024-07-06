@@ -1,6 +1,6 @@
 import Strike from "./strike";
 import Tile from "./tile";
-import gamestate from "./gamestate";
+import gamestate from "./definitions/gamestate";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export default function Board({ tiles, onTileClick, playerTurn, strikeClass, gameState, isMobile }: {tiles?: string[], onTileClick: (i: number) => void, playerTurn: string, strikeClass: string, gameState: {}, isMobile: boolean}) {

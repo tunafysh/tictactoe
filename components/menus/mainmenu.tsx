@@ -25,9 +25,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useState } from "react"
-import Local from "./localengine"
-import Multi from "./multiengine"
-import Single from "./singleengine"
+import Local from "@/components/engines/localengine"
+import Multi from "@/components/engines/multiengine"
+import Single from "../engines/singleengine"
 export default function MainMenu({isMobile}: {isMobile: boolean}) {
     const [Mode, setMode] = useState("");
 if (Mode === "") {

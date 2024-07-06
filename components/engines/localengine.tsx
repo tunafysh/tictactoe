@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import Konami from "react-konami-code";
-import Board from "./board";
-import GameOver from "./gameover";
-import gamestate from "./gamestate";
+import Board from "@/components/board";
+import GameOver from "@/components/menus/gameover";
+import gamestate from "@/components/definitions/gamestate";
 
 const PLAYER_X = "X";
 const PLAYER_O = "O";
