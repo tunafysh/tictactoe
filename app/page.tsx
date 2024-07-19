@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect, useContext } from "react";
 import LoginForm from "@/components/auth/authui";
 import { Toaster, toast } from "sonner";
@@ -12,7 +13,6 @@ const isPhone =
     : false;
 
 export default function Home() {
-  "use client";
   const [isMobile] = useState(isPhone);
   const [username, setUsername] = useState("");
   const [matchpass, setMatchPass] = useState(Boolean);
