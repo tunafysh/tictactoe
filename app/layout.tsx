@@ -1,11 +1,15 @@
+import { GamepadsProvider } from 'react-ts-gamepads';
 import { ThemeProvider } from "@/components/theme-provider"
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils"
 import { ModeToggle } from "@/components/modetoggle";
 import { Metadata } from "next";
+import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 
 const inter = Inter({ subsets: ["latin"],   variable: "--font-sans" });
+
+disableReactDevTools()
 
 export const metadata: Metadata = {
   title: "Tic Tac Toe",
@@ -31,14 +35,6 @@ export default function RootLayout({
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange>
-
-            <div id="modetoggle" className="absolute animate-fade top-4 right-4">
-              <ModeToggle />
-            </div>
-           <p className="absolute animate-fade bottom-4 left-4 text-zinc-500">
-              Made with ♥️ by Hanan
-            </p>
-            <p className="absolute animate-fade bottom-4 right-4 text-zinc-500">Ver: 0.5.2</p>
               {children}
           </ThemeProvider>
         </body>

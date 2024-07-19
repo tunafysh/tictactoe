@@ -4,7 +4,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"  
+} from "@/components/ui/no-close-dialog"  
 import { Dispatch, SetStateAction } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/auth-input"
@@ -67,10 +67,7 @@ const [confirm, setConfirm] = useState<string>("");
 let date = new Date()
 
 return (
-  <Dialog>
-    <DialogTrigger asChild>
-      <Button className="absolute animate-fade top-4 left-4">Sign up</Button>
-    </DialogTrigger>
+  <Dialog open={true}>
     <DialogContent className="sm:max-w-[425px]">
       <DialogHeader>
         <DialogTitle className="text-center">Sign up</DialogTitle>
