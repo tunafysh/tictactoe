@@ -6,7 +6,6 @@ import { Stats } from "@/components/menus/stats";
 import MainMenu from "@/components/menus/mainmenu";
 import { ModeToggle } from "@/components/modetoggle";
 import { useGamepads } from "react-ts-gamepads";
-import Test from "@/components/gamepadtest";
 
 const isPhone =
   typeof window !== "undefined"
@@ -64,7 +63,6 @@ export default function Home() {
       Made with ♥️ by Hanan
     </p>
     <p className="absolute animate-fade bottom-4 right-4 text-zinc-500">Ver: 0.5.2</p>
-    <Test/>
     </>          
   );
 }
