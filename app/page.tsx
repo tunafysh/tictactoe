@@ -20,8 +20,9 @@ export default function Home() {
   const [username, setUsername] = useState("");
   const [matchpass, setMatchPass] = useState(Boolean);
   const [del, setDel] = useState(Boolean);
-  const [gamepads, setGamepads] = useState<GamepadRef>({});
-  useGamepads(gamepads => setGamepads(gamepads));
+  //TODO add the damn gamepad support
+  // const [gamepads, setGamepads] = useState<GamepadRef>({});
+  // useGamepads(gamepads => setGamepads(gamepads));
 
 
   useEffect(() => {
