@@ -17,6 +17,8 @@ import {
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
 import { toast } from "sonner"
+import { useActionState } from 'react';
+import { authenticate } from '@/app/lib/actions';
 
       const GoogleBottomGradient = () => {
         return (
@@ -64,9 +66,15 @@ export default function LoginForm() {
 const [username, setUsername] = useState<string>("");
 const [password, setPassword] = useState<string>("");
 const [confirm, setConfirm] = useState<string>("");
+const [errorMessage, formAction, isPending] = useActionState(
+  authenticate,
+  undefined,
+);
 let date = new Date()
 
 return (
+  <form action={formAction}>
+
   <Dialog open={true}>
     <DialogContent className="sm:max-w-[425px]">
       <DialogHeader>
@@ -108,7 +116,7 @@ return (
           {date.getMonth() == 3 && date.getDate() == 1? <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
-          >
+            >
             <IconBrandOnlyfans className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
               OnlyFans
@@ -148,5 +156,6 @@ return (
       }}>Sign up</Button>
     </DialogContent>
   </Dialog>
+  </form>
   )
 }

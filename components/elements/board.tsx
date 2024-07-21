@@ -1,6 +1,6 @@
 import Strike from "./strike";
 import Tile from "./tile";
-import gamestate from "@/components/definitions/gamestate";
+import gamestate from "@/lib/definitions/gamestate";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export default function Board({

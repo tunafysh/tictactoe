@@ -1,4 +1,4 @@
-import gamestate from "../definitions/gamestate"
+import gamestate from "../../lib/definitions/gamestate"
 import { Button } from "../ui/button"
 
 export default function GameOver({ gameState }: { gameState: {} }) {
