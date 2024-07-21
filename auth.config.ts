@@ -1,13 +1,19 @@
 "use server"
-import NextAuthConfig from 'next-auth';
+import NextAuthConfig, { CallbacksOptions } from 'next-auth';
 import Google from "next-auth/providers/google"
 import Github from "next-auth/providers/github"
 import Instagran from "next-auth/providers/instagram"
 import Credentials from "next-auth/providers/credentials"
 import { z } from "zod"
 import { sql } from '@vercel/postgres';
-import type User from '@/components/definitions/user';
+import type User from '@/lib/definitions/user';
 import bcrypt from 'bcrypt';
+
+type Awaitable<T> = T | Promise<T>;
+
+type CustomCallbacksOptions = CallbacksOptions & {
+    authorized: (params: { auth: any, request: { nextUrl: any } }) => boolean | Promise<boolean | Response>;
+  };
 
 async function getUser(email: string): Promise<User | undefined> {
     try {
@@ -24,7 +30,7 @@ export const authConfig = NextAuthConfig({
     signIn: '/login',
   },
     callbacks: {
-        authorized({ auth, request: { nextUrl } }) {
+        authorized: ({ auth, request: { nextUrl } }) => {
         const isLoggedIn = !!auth?.user;
         const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
         if (isOnDashboard) {
@@ -35,7 +41,7 @@ export const authConfig = NextAuthConfig({
         }
         return true;
         },
-    },
+    } as CustomCallbacksOptions,
   providers: [
     Google({
         clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -50,23 +56,23 @@ export const authConfig = NextAuthConfig({
         clientSecret: process.env.INSTAGRAM_CLIENT_SECRET || ""
       }),
     Credentials({
-        async authorize(credentials) {
+        async authorize(credentials, req) {
             const parsedCredentials = z
-              .object({ email: z.string().email(), password: z.string().min(6) })
-              .safeParse(credentials);
+                .object({ email: z.string().email(), password: z.string().min(6) })
+                .safeParse(credentials);
 
-              if (parsedCredentials.success) {
+            if (parsedCredentials.success) {
                 const { email, password } = parsedCredentials.data;
                 const user = await getUser(email);
                 if (!user) return null;
 
-                const passwordsMatch = await bcrypt.compare(password, user.password); 
+                const passwordsMatch = bcrypt.compare(bcrypt.hashSync(password), user.password);
                 if (passwordsMatch) return user;
-      
+
             }
 
             console.log('Invalid credentials');
             return null;
-          },
-        })]
+        },
+    })]
 });
