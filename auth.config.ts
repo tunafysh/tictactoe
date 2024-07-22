@@ -15,7 +15,7 @@ type CustomCallbacksOptions = CallbacksOptions & {
     authorized: (params: { auth: any, request: { nextUrl: any } }) => boolean | Promise<boolean | Response>;
   };
 
-async function getUser(email: string): Promise<User | undefined> {
+  async function getUser(email: string): Promise<User | undefined> {
     try {
       const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
       return user.rows[0];
