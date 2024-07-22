@@ -3,9 +3,9 @@ type User = {
     username: string,
     email: string,
     password: string,
-    Games: number,
-    Wins: number,
-    Losses: number    
+    games: number,
+    wins: number,
+    losses: number    
 }
 
 export default User;
