@@ -1,20 +1,5 @@
 "use client"
 
-import Link from "next/link"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-
-import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
 import {
   Select,
   SelectContent,
@@ -28,7 +13,14 @@ import { useState } from "react"
 import Local from "@/components/engines/localengine"
 import Multi from "@/components/engines/multiengine"
 import Single from "../engines/singleengine"
+import { useRouter } from "next/navigation"
 export default function MainMenu({isMobile}: {isMobile: boolean}) {
+  const router = useRouter()
+
+  const handleRedirect = (dest:string) => {
+    router.push('/'+dest)
+  }
+
     const [Mode, setMode] = useState("");
 if (Mode === "") {
   return (
@@ -52,13 +44,13 @@ if (Mode === "") {
 }
   else{
     if(Mode == "single"){
-        return <Single isMobile={isMobile} />
+      handleRedirect("singleplayer")
     }
     if(Mode == "multi"){
-        return <Multi isMobile={isMobile} />
+      handleRedirect("multiplayer")
     }
     if(Mode == "local"){
-        return <Local isMobile={isMobile} />
+      handleRedirect("local")
     }
 }
 }

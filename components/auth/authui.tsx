@@ -17,8 +17,8 @@ import {
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
 import { toast } from "sonner"
-import { useActionState } from 'react';
 import { authenticate } from '@/app/lib/actions';
+import { sign } from "crypto"
 
       const GoogleBottomGradient = () => {
         return (
@@ -62,25 +62,21 @@ import { authenticate } from '@/app/lib/actions';
 
 
 
-export default function LoginForm() {
+export default function LoginForm({ signup }: {signup: boolean} ) {
 const [username, setUsername] = useState<string>("");
 const [password, setPassword] = useState<string>("");
 const [confirm, setConfirm] = useState<string>("");
-const [errorMessage, formAction, isPending] = useActionState(
-  authenticate,
-  undefined,
-);
 let date = new Date()
 
 return (
-  <form action={formAction}>
+  <form className="h-screen w-screen flex justify-center items-center p-6">
+      <main className="w-[400px]">
 
-  <Dialog open={true}>
-    <DialogContent className="sm:max-w-[425px]">
-      <DialogHeader>
-        <DialogTitle className="text-center">Sign up</DialogTitle>
-      </DialogHeader>
-      <div className="flex flex-col space-y-4">
+
+        {signup? <h1 className="text-center font-bold text-4xl">Sign up</h1>: <h1 className="text-center font-bold text-4xl">Log in</h1>}
+        <br />
+        <br />
+        <div className="flex flex-col space-y-4">
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
@@ -94,7 +90,7 @@ return (
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
-          >
+            >
             <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
               GitHub
@@ -126,11 +122,13 @@ return (
             : <></>}
           
           </div>
+          <br />
       <div className="flex flex-row items-center justify-between">
-      <hr className=" w-24"/>
+      <hr className=" w-[calc(50%-5rem)]"/>
         <p className="text-center break-keep text-nowrap"> or the traditional way</p>
-      <hr className="w-24"/>
+      <hr className="w-[calc(20%+1rem)]"/>
       </div>
+    {signup?<>
       <div className="grid gap-4 py-4">
       <div className="grid items-center gap-4">
         <Label htmlFor="name" className="text-left">
@@ -152,10 +150,29 @@ return (
         </div>
       </div>
       <Button onClick={() => {
-       
-      }}>Sign up</Button>
-    </DialogContent>
-  </Dialog>
+        
+      }}>Sign up</Button> 
+      </>
+      : <>
+      <div className="grid gap-4 py-4">
+      <div className="grid items-center gap-4">
+        <Label htmlFor="name" className="text-left">
+            Username
+          </Label>
+          <Input onChange={(e) => setUsername(e.target.value)} className="col-span-3" type="text"/>
+        </div>
+        <div className="grid items-center gap-4">
+        <Label htmlFor="name" className="text-left">
+            Password
+          </Label>
+          <Input onChange={(e) => setPassword(e.target.value)} className="col-span-3" type="password" min={8} max={16}/>
+        </div>
+      </div>
+      <Button onClick={() => {
+        
+      }}>Login</Button> 
+      </>}
+      </main>
   </form>
   )
 }
