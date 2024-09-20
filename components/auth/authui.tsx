@@ -22,6 +22,7 @@ import { sign } from "crypto"
 import { signIn, signOut } from "@/auth"
 import { signInWithGithub, signInWithGoogle, signInWithInstagram } from "@/app/actions/auth"
 import { useRouter } from "next/navigation"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 
       const GoogleBottomGradient = () => {
         return (
@@ -80,7 +81,63 @@ return (
         {signup? <h1 className="text-center font-bold text-4xl">Sign up</h1>: <h1 className="text-center font-bold text-4xl">Log in</h1>}
         <br />
         <br />
-        <div className="flex flex-col space-y-4">
+
+      <Tabs defaultValue="traditional">
+      <TabsList className="grid w-full grid-cols-3">
+        <TabsTrigger value="traditional">Traditional</TabsTrigger>
+        <TabsTrigger value="SSO">SSO</TabsTrigger>
+        <TabsTrigger value="other">Other options</TabsTrigger>
+      </TabsList>
+      <TabsContent value="traditional">
+
+      {signup?<>
+        <div className="grid gap-4 py-4">
+        <div className="grid items-center gap-4">
+        <Label htmlFor="name" className="text-left">
+            Username
+          </Label>
+          <Input onChange={(e) => setUsername(e.target.value)} className="col-span-3" type="text"/>
+        </div>
+        <div className="grid items-center gap-4">
+        <Label htmlFor="name" className="text-left">
+            Password
+          </Label>
+          <Input onChange={(e) => setPassword(e.target.value)} className="col-span-3" type="password" min={8} max={16}/>
+        </div>
+        <div className="grid items-center gap-2">
+        <Label htmlFor="name" className="text-left">
+           Confirm
+          </Label>
+          <Input onChange={(e) => setConfirm(e.target.value)} className="col-span-3" type="password" min={8} max={16}/>
+        </div>
+      </div>
+      <Button onClick={() => {
+        
+      }}>Sign up</Button> 
+      </>
+      : <>
+      <div className="grid gap-4 py-4">
+      <div className="grid items-center gap-4">
+        <Label htmlFor="name" className="text-left">
+            Username
+          </Label>
+          <Input onChange={(e) => setUsername(e.target.value)} className="col-span-3" type="text"/>
+        </div>
+        <div className="grid items-center gap-4">
+        <Label htmlFor="name" className="text-left">
+            Password
+          </Label>
+          <Input onChange={(e) => setPassword(e.target.value)} className="col-span-3" type="password" min={8} max={16}/>
+        </div>
+      </div>
+      <Button onClick={() => {
+        
+      }}>Login</Button> 
+      </>}
+      </TabsContent>
+      <TabsContent value="SSO">
+        <br />
+      <div className="flex flex-col space-y-4">
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             onClick={
@@ -146,56 +203,8 @@ return (
             : <></>}
           
           </div>
-          <br />
-      <div className="flex flex-row items-center justify-between">
-      <hr className=" w-[calc(50%-5rem)]"/>
-        <p className="text-center break-keep text-nowrap"> or the traditional way</p>
-      <hr className="w-[calc(20%+1rem)]"/>
-      </div>
-    {signup?<>
-      <div className="grid gap-4 py-4">
-      <div className="grid items-center gap-4">
-        <Label htmlFor="name" className="text-left">
-            Username
-          </Label>
-          <Input onChange={(e) => setUsername(e.target.value)} className="col-span-3" type="text"/>
-        </div>
-        <div className="grid items-center gap-4">
-        <Label htmlFor="name" className="text-left">
-            Password
-          </Label>
-          <Input onChange={(e) => setPassword(e.target.value)} className="col-span-3" type="password" min={8} max={16}/>
-        </div>
-        <div className="grid items-center gap-2">
-        <Label htmlFor="name" className="text-left">
-           Confirm
-          </Label>
-          <Input onChange={(e) => setConfirm(e.target.value)} className="col-span-3" type="password" min={8} max={16}/>
-        </div>
-      </div>
-      <Button onClick={() => {
-        
-      }}>Sign up</Button> 
-      </>
-      : <>
-      <div className="grid gap-4 py-4">
-      <div className="grid items-center gap-4">
-        <Label htmlFor="name" className="text-left">
-            Username
-          </Label>
-          <Input onChange={(e) => setUsername(e.target.value)} className="col-span-3" type="text"/>
-        </div>
-        <div className="grid items-center gap-4">
-        <Label htmlFor="name" className="text-left">
-            Password
-          </Label>
-          <Input onChange={(e) => setPassword(e.target.value)} className="col-span-3" type="password" min={8} max={16}/>
-        </div>
-      </div>
-      <Button onClick={() => {
-        
-      }}>Login</Button> 
-      </>}
+      </TabsContent>
+      </Tabs>
       </main>
   </form>
   )

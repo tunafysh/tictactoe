@@ -60,7 +60,7 @@ export default function Home() {
       <Suspense fallback={<p>Loading...</p>}>
       <Single isMobile={isMobile} />
       <button onClick={ () => router.push("/")} className="absolute animate-face top-4 left-4 w-5 h-5"><ArrowLeftIcon width={"25px"} height={"25px"} /></button>
-        <Toaster richColors position="top-center" />\
+        <Toaster richColors position="top-center" />
         </Suspense>
       </main>
       <div id="modetoggle" className="absolute animate-fade top-4 right-4">
