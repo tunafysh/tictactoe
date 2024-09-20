@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils"
 import { ModeToggle } from "@/components/modetoggle";
+import { SessionProvider } from "next-auth/react"
 import { Metadata } from "next";
 import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 
@@ -30,6 +31,8 @@ export default function RootLayout({
       <body className={cn(
           "min-h-screen bg-background font-sans antialiased",
           inter.variable)}>
+            <SessionProvider>
+
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -37,6 +40,7 @@ export default function RootLayout({
             disableTransitionOnChange>
               {children}
           </ThemeProvider>
+              </SessionProvider>
         </body>
     </html>
   );
