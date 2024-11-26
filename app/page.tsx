@@ -6,6 +6,7 @@ import { Stats } from "@/components/menus/stats";
 import MainMenu from "@/components/menus/mainmenu";
 import { ModeToggle } from "@/components/modetoggle";
 import { useGamepads } from "react-ts-gamepads";
+import { useTheme } from "next-themes";
 
 const isPhone =
   typeof window !== "undefined"
@@ -15,9 +16,12 @@ const isPhone =
     : false;
 
 export default function Home() {
+  const month = new Date().toLocaleString("en-US", { month: "long" });
+  const day = new Date().toLocaleString("en-US", { day: "numeric" });
   const [isMobile] = useState(isPhone);
   const [username, setUsername] = useState("");
   const [matchpass, setMatchPass] = useState(Boolean);
+  const { theme, setTheme } = useTheme();
   const [del, setDel] = useState(Boolean);
   //TODO add the damn gamepad support
   // const [gamepads, setGamepads] = useState<GamepadRef>({});
@@ -25,6 +29,9 @@ export default function Home() {
 
 
   useEffect(() => {
+    if ( day == "26" && month == "November") {
+      setTheme("albania")
+    }
     if (del) {
       fetch(window.location.href + "api/player", { method: "DELETE" })
         .then((res) => res.text())
@@ -52,12 +59,12 @@ export default function Home() {
 
   return (
     <>
-      <main className="flex justify-center h-screen w-screen">
+      <main className={`flex justify-center h-screen w-screen`}>
         <MainMenu isMobile={isMobile} />
         <Toaster richColors position="top-center" />
       </main>
       <div id="modetoggle" className="absolute animate-fade top-4 right-4">
-      <ModeToggle />
+      {day == "28" && month == "November" && <ModeToggle />}
     </div>
     <p className="absolute animate-fade bottom-4 left-4 text-zinc-500">
       Made with ♥️ by Hanan
