@@ -17,10 +17,6 @@ import {
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
 import { toast } from "sonner"
-import { authenticate } from '@/app/lib/actions';
-import { sign } from "crypto"
-import { signIn, signOut } from "@/auth"
-import { signInWithGithub, signInWithGoogle, signInWithInstagram } from "@/app/actions/auth"
 import { useRouter } from "next/navigation"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 
@@ -111,9 +107,7 @@ return (
           <Input onChange={(e) => setConfirm(e.target.value)} className="col-span-3" type="password" min={8} max={16}/>
         </div>
       </div>
-      <Button onClick={() => {
-        
-      }}>Sign up</Button> 
+      <Button>Sign up</Button> 
       </>
       : <>
       <div className="grid gap-4 py-4">
@@ -130,9 +124,7 @@ return (
           <Input onChange={(e) => setPassword(e.target.value)} className="col-span-3" type="password" min={8} max={16}/>
         </div>
       </div>
-      <Button onClick={() => {
-        
-      }}>Login</Button> 
+      <Button>Login</Button> 
       </>}
       </TabsContent>
       <TabsContent value="SSO">
@@ -140,11 +132,6 @@ return (
       <div className="flex flex-col space-y-4">
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            onClick={
-              async () => {
-                signInWithGoogle()
-              }
-            }
             type="submit"
           >
             <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
@@ -155,11 +142,6 @@ return (
           </button>
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            onClick={
-              async () => {
-                signInWithGithub()
-              }
-            }
             type="submit"
             >
             <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
@@ -171,11 +153,6 @@ return (
 
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            onClick={
-              async () => {
-                signInWithInstagram()
-              }
-            }
             type="submit"
           >
             <IconBrandInstagram className="h-4 w-4 text-neutral-800 dark:text-neutral-300"/>
