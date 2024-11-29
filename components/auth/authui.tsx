@@ -16,10 +16,14 @@ import {
   IconBrandGoogle,
   IconBrandInstagram,
   IconBrandOnlyfans,
+  IconKey,
+  IconKeyFilled,
+  IconMail,
 } from "@tabler/icons-react";
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
+import { useSession } from "next-auth/react"
 
       const GoogleBottomGradient = () => {
         return (
@@ -67,20 +71,19 @@ export default function LoginForm({ signup }: {signup: boolean} ) {
 const [username, setUsername] = useState<string>("");
 const [password, setPassword] = useState<string>("");
 const [confirm, setConfirm] = useState<string>("");
+const { data: session, update, status } = useSession()
 const router = useRouter();
 let date = new Date()
 
 return (
-  <form className="h-screen w-screen flex justify-center items-center p-6">
-      <main className="w-[400px]">
-
-
+  <main className="h-screen w-screen flex items-center p-6 flex-col">
+        <form className="w-[400px] flex-row mt-[12%]">
         {signup? <h1 className="text-center font-bold text-4xl">Sign up</h1>: <h1 className="text-center font-bold text-4xl">Log in</h1>}
         <br />
         <br />
 
       <Tabs defaultValue="traditional">
-      <TabsList className="grid w-full grid-cols-3">
+      <TabsList className="grid w-full grid-cols-3 transition-all duration-500">
         <TabsTrigger value="traditional">Traditional</TabsTrigger>
         <TabsTrigger value="SSO">SSO</TabsTrigger>
         <TabsTrigger value="other">Other options</TabsTrigger>
@@ -183,11 +186,42 @@ return (
           
           </div>
       </TabsContent>
+      <TabsContent value="other">
+        <br />
+        <div className="flex flex-col space-y-4">
+        {status === "authenticated" ? ( <button
+            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+            type="submit"
+            >
+              <IconKeyFilled className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+              <span className="text-neutral-700 dark:text-neutral-300 text-sm">
+                Register a passkey
+              </span>
+            </button>): ( <button
+            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+            type="submit"
+            >
+              <IconKey className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+              <span className="text-neutral-700 dark:text-neutral-300 text-sm">
+                Use passkeys to log in
+              </span>
+            </button>)}
+            <button
+            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+            type="submit"
+            >
+              <IconMail className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+              <span className="text-neutral-700 dark:text-neutral-300 text-sm">
+                Send a one-time code to email
+              </span>
+            </button>
+            </div>
+      </TabsContent>
       </Tabs>
+    </form>
       <br />
       <br />
-      <p>Not registered?<Button variant={"link"} onClick={() => router.replace("/signup")}>Create an account here</Button></p>
-      </main>
-  </form>
+    {!signup? <p>Not registered?<Button variant={"link"} onClick={() => router.replace("/signup")}>Create an account here</Button></p>: <p>Already have an account?<Button variant={"link"} onClick={() => router.replace("/login")}>Click to login here</Button></p>}
+  </main>
   )
 }
