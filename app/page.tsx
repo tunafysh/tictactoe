@@ -27,11 +27,11 @@ export default function Home() {
   // const [gamepads, setGamepads] = useState<GamepadRef>({});
   // useGamepads(gamepads => setGamepads(gamepads));
 
+  useEffect(() => {
+    if ( day == "26" && month == "November") setTheme("albania")
+  }, [day, month, setTheme])
 
   useEffect(() => {
-    if ( day == "26" && month == "November") {
-      setTheme("albania")
-    }
     if (del) {
       fetch(window.location.href + "api/player", { method: "DELETE" })
         .then((res) => res.text())
@@ -64,7 +64,7 @@ export default function Home() {
         <Toaster richColors position="top-center" />
       </main>
       <div id="modetoggle" className="absolute animate-fade top-4 right-4">
-      {day == "28" && month == "November" && <ModeToggle />}
+      {day != "28" && month != "November"? <ModeToggle />: <></>}
     </div>
     <p className="absolute animate-fade bottom-4 left-4 text-zinc-500">
       Made with ♥️ by Hanan
