@@ -8,6 +8,7 @@ import {
 import { Dispatch, SetStateAction } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/auth-input"
+import { PassInput } from "@/components/ui/pass-input"
 import { Label } from "@/components/ui/label"
 import {  useState } from "react"
 import {
@@ -19,6 +20,8 @@ import {
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
+import { signIn } from "@/auth"
+import { login } from "@/app/actions"
 
       const GoogleBottomGradient = () => {
         return (
@@ -43,14 +46,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
             </>
         );
       };
-      const IgBottomGradient = () => {
-        return (
-          <>
-            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-[97%] -bottom-px inset-x-0 bg-gradient-to-r from-ig1 via-ig2 to-ig3" />
-            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-[97%] -bottom-px inset-x-10 bg-gradient-to-r left-2 from-ig1 via-ig2 to-ig3 blur-sm" />
-          </>
-        );
-      };
       const OfBottomGradient = () => {
         return (
           <>
@@ -63,14 +58,24 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 
 
 export default function LoginForm({ signup }: {signup: boolean} ) {
-const [username, setUsername] = useState<string>("");
-const [password, setPassword] = useState<string>("");
-const [confirm, setConfirm] = useState<string>("");
-const router = useRouter();
-let date = new Date()
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirm, setConfirm] = useState<string>("");
+  const router = useRouter();
+  let date = new Date()
 
 return (
-  <form className="h-screen w-screen flex justify-center items-center p-6">
+  <form className="h-screen w-screen flex justify-center items-center p-6" action={(formData) => {
+
+    if(signup){
+      // add sign up
+    }
+    else{
+      login("credentials", formData)
+    }
+  }
+  }>
       <main className="w-[400px]">
 
 
@@ -98,7 +103,7 @@ return (
         <Label htmlFor="name" className="text-left">
             Password
           </Label>
-          <Input onChange={(e) => setPassword(e.target.value)} className="col-span-3" type="password" min={8} max={16}/>
+          <PassInput onChange={(e) => setPassword(e.target.value)} className="col-span-3" strength={password.length > 0 && /^(?=.*[a-z])/.test(password) ? "weak" : /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(password) ? "strong" : /[0-9]/.test(password) || /[!@#\$%\^&\*]/.test(password) || /[A-Z]/.test(password) ? "medium" : "none"} type="password" min={8} max={16}/>
         </div>
         <div className="grid items-center gap-2">
         <Label htmlFor="name" className="text-left">
@@ -132,34 +137,23 @@ return (
       <div className="flex flex-col space-y-4">
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
+            onClick={() => login("google")}
           >
             <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-            Google
+            {`Google (Currently not available)`}
             </span>
             <GoogleBottomGradient />
           </button>
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
+            // onClick={() => login("google")}
             >
             <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
               GitHub
             </span>
             <GithubBottomGradient />
-          </button>
-
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandInstagram className="h-4 w-4 text-neutral-800 dark:text-neutral-300"/>
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              Instagram
-            </span>
-            <IgBottomGradient />
           </button>
 
           {date.getMonth() == 3 && date.getDate() == 1? <button
