@@ -11,8 +11,7 @@ import {
     DrawerTrigger,
   } from "@/components/ui/drawer"
 import { Dispatch, SetStateAction } from "react";
-
-// const rows = async () => sql`SELECT * FROM Player`.then((res) => res).then((res) => res.rows[0])
+import { logout } from "@/app/actions"
 
 function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1)
@@ -51,7 +50,7 @@ export function Stats ({ setDel, playername }: { setDel: Dispatch<SetStateAction
                 </p>
             </div>
             <DrawerFooter>
-              <Button variant="destructive" onClick={() => setDel(true)}>Log Out</Button>
+              <Button variant="destructive" onClick={() => logout()}>Log Out</Button>
               <DrawerClose asChild>
                 <Button variant="outline">Okay</Button>
               </DrawerClose>
