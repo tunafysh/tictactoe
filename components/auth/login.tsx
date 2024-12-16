@@ -82,7 +82,8 @@ return (
       </TabsList>
       <TabsContent value="traditional">
       <form action={(formdata: FormData) =>{
-        login("credentials", formdata).then(() => router.push("/"))
+        login("credentials", formdata)
+          // .then(() => router.push("/"))
       }}>
       <div className="grid gap-4 py-4">
       <div className="grid items-center gap-4">
@@ -117,7 +118,8 @@ return (
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             onClick={() => {
-              login("github").then(() => router.push("/"))
+              login("github")
+              // .then(() => router.push("/"))
             }}
             >
             <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
