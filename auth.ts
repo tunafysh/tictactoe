@@ -14,5 +14,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [Github, Resend, WebAuthn],
     experimental: {
         enableWebAuthn: true
+    },
+    session: {
+        maxAge: 3600
     }
 })
