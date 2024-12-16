@@ -66,16 +66,6 @@ export default function LoginForm({ signup }: {signup: boolean} ) {
   let date = new Date()
 
 return (
-  <form className="h-screen w-screen flex justify-center items-center p-6" action={(formData) => {
-
-    if(signup){
-      // add sign up
-    }
-    else{
-      login("credentials", formData)
-    }
-  }
-  }>
       <main className="w-[400px]">
 
 
@@ -90,6 +80,14 @@ return (
         <TabsTrigger value="other">Other options</TabsTrigger>
       </TabsList>
       <TabsContent value="traditional">
+      <form className="h-screen w-screen flex justify-center items-center p-6" action={(formData: FormData) =>{
+        async (formData: FormData) => {
+          "use server"
+            await signIn("credentials", formData, {callbackUrl: "/"});
+        }
+
+        router.push("/")
+      }}>
       <div className="grid gap-4 py-4">
       <div className="grid items-center gap-4">
         <Label htmlFor="name" className="text-left">
@@ -105,24 +103,30 @@ return (
         </div>
       </div>
       <Button>Login</Button> 
+        </form>
       </TabsContent>
       <TabsContent value="SSO">
         <br />
       <div className="flex flex-col space-y-4">
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            onClick={() => login("google")}
+            disabled
           >
             <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-            {`Google (Currently not available)`}
+            {`Google (Not available until this web app gets its own domain)`}
             </span>
             <GoogleBottomGradient />
           </button>
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            // onClick={() => login("google")}
-            >
+            onClick={()=>{
+              async () => {
+                "use server"
+                await signIn("github", { callbackUrl: "/" })
+              }
+              router.push("/")
+              }}>
             <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
               GitHub
@@ -146,11 +150,9 @@ return (
             <OfBottomGradient />
             </button>
             : <></>}
-          
           </div>
       </TabsContent>
       </Tabs>
       </main>
-  </form>
   )
 }
