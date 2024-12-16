@@ -64,9 +64,7 @@ export default function Home() {
         <MainMenu isMobile={isMobile} />
         <Toaster richColors position="top-center" />
       </main>
-      <div className="absolute animate-fade top-4 left-4">
-        {status === "authenticated"? <Stats setDel={setDel} playername={session.user?.name ?? ""} />: <Button onClick={() => {}}>Sign in</Button>}
-      </div>
+        {status === "authenticated"? <Stats setDel={setDel} playername={session.user?.name ?? ""} />: <Button className="absolute animate-fade top-4 left-4" onClick={() => {}}>Sign in</Button>}
       <div id="modetoggle" className="absolute animate-fade top-4 right-4">
       {day != "28" && month != "November"? <ModeToggle />: <></>}
     </div>
