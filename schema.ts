@@ -6,9 +6,9 @@ import {
     primaryKey,
     integer,
   } from "drizzle-orm/pg-core"
-  import { drizzle } from "drizzle-orm/postgres-js"
-  import type { AdapterAccountType } from "next-auth/adapters"
+  import { drizzle } from "drizzle-orm/vercel-postgres"
   import { sql } from "@vercel/postgres"
+  import type { AdapterAccountType } from "next-auth/adapters"
    
   export const db = drizzle(sql)
    
