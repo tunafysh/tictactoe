@@ -60,7 +60,7 @@ return (
     <br />
 
   <Tabs defaultValue="traditional">
-  <TabsList className="grid w-full grid-cols-3">
+  <TabsList className="grid w-full grid-cols-2">
     <TabsTrigger value="traditional">Traditional</TabsTrigger>
     <TabsTrigger value="SSO">SSO</TabsTrigger>
   </TabsList>
