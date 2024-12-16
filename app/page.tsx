@@ -1,11 +1,8 @@
 "use client";
-import { useState, useEffect, useContext } from "react";
-import LoginForm from "@/components/auth/authui";
-import { Toaster, toast } from "sonner";
-import { Stats } from "@/components/menus/stats";
+import { useState, useEffect } from "react";
+import { Toaster } from "sonner";
 import MainMenu from "@/components/menus/mainmenu";
 import { ModeToggle } from "@/components/modetoggle";
-import { useGamepads } from "react-ts-gamepads";
 import { useTheme } from "next-themes";
 
 const isPhone =
