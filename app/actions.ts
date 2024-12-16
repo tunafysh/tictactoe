@@ -10,7 +10,7 @@ export async function login(provider: string, data?: FormData | Passkey) {
         await signIn("credentials",data)
     }
     else{
-        await signIn(provider)
+        await signIn(provider, { callbackUrl: "/" })
     }
 }
 
