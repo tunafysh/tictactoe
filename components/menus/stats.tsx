@@ -27,7 +27,7 @@ export function Stats ({ setDel, playername }: { setDel: Dispatch<SetStateAction
     return (
         <Drawer>
         <DrawerTrigger asChild>
-          <Button className="absolute animate-fade top-4 left-4">My stats</Button>
+          <Button className="absolute top-4 left-4">My stats</Button>
         </DrawerTrigger>
         <DrawerContent>
           <div className="mx-auto w-full max-w-sm">

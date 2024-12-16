@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Stats } from "@/components/menus/stats";
+import { useRouter } from "next/navigation";
 
 const isPhone =
   typeof window !== "undefined"
@@ -24,6 +25,7 @@ export default function Home() {
   const { theme, setTheme } = useTheme();
   const [del, setDel] = useState(Boolean);
   const { data: session, status } = useSession();
+  const router = useRouter();
   //TODO add the damn gamepad support
   // const [gamepads, setGamepads] = useState<GamepadRef>({});
   // useGamepads(gamepads => setGamepads(gamepads));
@@ -64,14 +66,14 @@ export default function Home() {
         <MainMenu isMobile={isMobile} />
         <Toaster richColors position="top-center" />
       </main>
-        {status === "authenticated"? <Stats setDel={setDel} playername={session.user?.name ?? ""} />: <Button className="absolute animate-fade top-4 left-4" onClick={() => {}}>Sign in</Button>}
-      <div id="modetoggle" className="absolute animate-fade top-4 right-4">
+        {status === "authenticated"? <Stats setDel={setDel} playername={session.user?.name ?? ""} />: <Button className="absolute top-4 left-4" onClick={() => {router.push("/login")}}>Sign in</Button>}
+      <div id="modetoggle" className="absolute top-4 right-4">
       {day != "28" && month != "November"? <ModeToggle />: <></>}
     </div>
-    <p className="absolute animate-fade bottom-4 left-4 text-zinc-500">
+    <p className="absolute bottom-4 left-4 text-zinc-500">
       Made with ♥️ by Hanan
     </p>
-    <p className="absolute animate-fade bottom-4 right-4 text-zinc-500">Ver: 0.5.2</p>
+    <p className="absolute bottom-4 right-4 text-zinc-500">Ver: 0.5.2</p>
     </>          
   );
 }
