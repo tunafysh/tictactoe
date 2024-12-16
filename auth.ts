@@ -8,9 +8,9 @@ import { db } from "@/schema"
 export const { handlers, signIn, signOut, auth } = NextAuth({
     // @ts-ignore
     adapter: DrizzleAdapter(db),
-    pages: {
-        signIn: "/login",
-    },
+    // pages: {
+    //     signIn: "/login",
+    // },
     providers: [Github, Resend, WebAuthn],
     experimental: {
         enableWebAuthn: true
