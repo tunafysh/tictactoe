@@ -1,5 +1,5 @@
 "use client";
-import LoginForm from "@/components/auth/authui";
+import LoginForm from "@/components/auth/login";
 import { ModeToggle } from "@/components/modetoggle";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";

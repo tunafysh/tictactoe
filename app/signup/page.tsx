@@ -1,10 +1,10 @@
 "use client";
-import LoginForm from "@/components/auth/authui";
+import Signup from "@/components/auth/signup";
 import { ModeToggle } from "@/components/modetoggle";
 
 export default function Login() {
     return (<>
-    <LoginForm signup={true} />
+    <Signup />
     <div id="modetoggle" className="absolute animate-fade top-4 right-4 z-50">
       <ModeToggle />
     </div>

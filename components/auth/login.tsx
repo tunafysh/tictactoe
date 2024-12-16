@@ -79,7 +79,7 @@ return (
       <main className="w-[400px]">
 
 
-        {signup? <h1 className="text-center font-bold text-4xl">Sign up</h1>: <h1 className="text-center font-bold text-4xl">Log in</h1>}
+        <h1 className="text-center font-bold text-4xl">Log in</h1>
         <br />
         <br />
 
@@ -90,31 +90,6 @@ return (
         <TabsTrigger value="other">Other options</TabsTrigger>
       </TabsList>
       <TabsContent value="traditional">
-
-      {signup?<>
-        <div className="grid gap-4 py-4">
-        <div className="grid items-center gap-4">
-        <Label htmlFor="name" className="text-left">
-            Username
-          </Label>
-          <Input onChange={(e) => setUsername(e.target.value)} className="col-span-3" type="text"/>
-        </div>
-        <div className="grid items-center gap-4">
-        <Label htmlFor="name" className="text-left">
-            Password
-          </Label>
-          <PassInput onChange={(e) => setPassword(e.target.value)} className="col-span-3" strength={password.length > 0 && /^(?=.*[a-z])/.test(password) ? "weak" : /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(password) ? "strong" : /[0-9]/.test(password) || /[!@#\$%\^&\*]/.test(password) || /[A-Z]/.test(password) ? "medium" : "none"} type="password" min={8} max={16}/>
-        </div>
-        <div className="grid items-center gap-2">
-        <Label htmlFor="name" className="text-left">
-           Confirm
-          </Label>
-          <Input onChange={(e) => setConfirm(e.target.value)} className="col-span-3" type="password" min={8} max={16}/>
-        </div>
-      </div>
-      <Button>Sign up</Button> 
-      </>
-      : <>
       <div className="grid gap-4 py-4">
       <div className="grid items-center gap-4">
         <Label htmlFor="name" className="text-left">
@@ -130,7 +105,6 @@ return (
         </div>
       </div>
       <Button>Login</Button> 
-      </>}
       </TabsContent>
       <TabsContent value="SSO">
         <br />
