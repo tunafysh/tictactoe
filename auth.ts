@@ -15,7 +15,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     experimental: {
         enableWebAuthn: true
     },
-    session: {
-        maxAge: 3600
-    }
 })
