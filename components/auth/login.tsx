@@ -80,13 +80,9 @@ return (
         <TabsTrigger value="other">Other options</TabsTrigger>
       </TabsList>
       <TabsContent value="traditional">
-      <form className="h-screen w-screen flex justify-center items-center p-6" action={(formData: FormData) =>{
-        async (formData: FormData) => {
-          "use server"
-            await signIn("credentials", formData, {callbackUrl: "/"});
-        }
-
-        router.push("/")
+      <form className="h-screen w-screen flex justify-center items-center p-6" action={(formdata: FormData) =>{
+        login("credentials", formdata)
+        router.push("/");
       }}>
       <div className="grid gap-4 py-4">
       <div className="grid items-center gap-4">
@@ -120,13 +116,11 @@ return (
           </button>
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            onClick={()=>{
-              async () => {
-                "use server"
-                await signIn("github", { callbackUrl: "/" })
-              }
-              router.push("/")
-              }}>
+            onClick={() => {
+              login("github")
+              router.push("/");
+            }}
+            >
             <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
               GitHub
@@ -150,6 +144,7 @@ return (
             <OfBottomGradient />
             </button>
             : <></>}
+          
           </div>
       </TabsContent>
       </Tabs>
