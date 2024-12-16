@@ -66,7 +66,7 @@ export default function LoginForm({ signup }: {signup: boolean} ) {
   let date = new Date()
 
 return (
-      <main className="w-[400px]">
+      <main className="h-screen w-screen flex justify-center items-center p-6">
 
 
         <h1 className="text-center font-bold text-4xl">Log in</h1>
@@ -80,9 +80,8 @@ return (
         <TabsTrigger value="other">Other options</TabsTrigger>
       </TabsList>
       <TabsContent value="traditional">
-      <form className="h-screen w-screen flex justify-center items-center p-6" action={(formdata: FormData) =>{
-        login("credentials", formdata)
-        router.push("/");
+      <form action={(formdata: FormData) =>{
+        login("credentials", formdata).then(() => router.push("/"))
       }}>
       <div className="grid gap-4 py-4">
       <div className="grid items-center gap-4">
@@ -98,7 +97,7 @@ return (
           <Input onChange={(e) => setPassword(e.target.value)} className="col-span-3" type="password" min={8} max={16}/>
         </div>
       </div>
-      <Button>Login</Button> 
+      <Button type="submit">Login</Button> 
         </form>
       </TabsContent>
       <TabsContent value="SSO">
@@ -117,8 +116,7 @@ return (
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             onClick={() => {
-              login("github")
-              router.push("/");
+              login("github", formdata).then(() => router.push("/"))
             }}
             >
             <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
@@ -135,7 +133,6 @@ return (
                 router.replace("https://youtu.be/KouZTXZHcLg?si=Mtyx7k21mVdCCIDg")
               }
             }
-            type="submit"
             >
             <IconBrandOnlyfans className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
