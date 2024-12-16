@@ -1,3 +1,4 @@
+
 import {
   Dialog,
   DialogContent,
@@ -66,14 +67,14 @@ export default function LoginForm({ signup }: {signup: boolean} ) {
   let date = new Date()
 
 return (
-      <main className="h-screen w-screen flex justify-center items-center p-6">
+      <main className="h-screen w-screen flex justify-center items-center flex-col p-6">
 
 
         <h1 className="text-center font-bold text-4xl">Log in</h1>
         <br />
         <br />
 
-      <Tabs defaultValue="traditional">
+      <Tabs defaultValue="traditional" className="w-[400px]">
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="traditional">Traditional</TabsTrigger>
         <TabsTrigger value="SSO">SSO</TabsTrigger>
@@ -109,7 +110,7 @@ return (
           >
             <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-            {`Google (Not available until this web app gets its own domain)`}
+            {`Google (Not available)`}
             </span>
             <GoogleBottomGradient />
           </button>

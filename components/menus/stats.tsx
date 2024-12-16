@@ -18,11 +18,6 @@ function capitalize(str: string) {
 }
 
 export function Stats ({ setDel, playername }: { setDel: Dispatch<SetStateAction<boolean>>, playername: string }) {
-  
-    async function deletePlayer() {
-
-        setDel(true)
-    }
 
     return (
         <Drawer>

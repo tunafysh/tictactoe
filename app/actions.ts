@@ -7,10 +7,10 @@ interface Passkey {
 
 export async function login(provider: string, data?: FormData | Passkey) {
     if (provider === "credentials"){
-        await signIn("credentials",data, { callbackUrl: "/" })
+        return await signIn("credentials",data, { callbackUrl: "/" })
     }
     else{
-        await signIn(provider, { callbackUrl: "/" })
+        return await signIn(provider, { callbackUrl: "/" })
     }
 }
 
