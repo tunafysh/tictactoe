@@ -6,7 +6,6 @@ import {
     primaryKey,
     integer,
   } from "drizzle-orm/pg-core"
-  import postgres from "postgres"
   import { drizzle } from "drizzle-orm/postgres-js"
   import type { AdapterAccountType } from "next-auth/adapters"
   import { sql } from "@vercel/postgres"
@@ -46,6 +45,18 @@ import {
       }),
     })
   )
+
+  export const profiles = pgTable("profile", {
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, {
+        onDelete: "cascade",
+      }),
+    name: text("name"),
+    picture: text("picture"),
+    games: integer("games"),
+    wins: integer("wins"),
+  })
    
   export const sessions = pgTable("session", {
     sessionToken: text("sessionToken").primaryKey(),
