@@ -6,6 +6,7 @@ import WebAuthn from "next-auth/providers/webauthn"
 import { db } from "@/schema"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+    // @ts-ignore
     adapter: DrizzleAdapter(db),
     pages: {
         signIn: "/login",
