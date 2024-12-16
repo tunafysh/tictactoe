@@ -4,6 +4,9 @@ import { Toaster } from "sonner";
 import MainMenu from "@/components/menus/mainmenu";
 import { ModeToggle } from "@/components/modetoggle";
 import { useTheme } from "next-themes";
+import { useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import { Stats } from "@/components/menus/stats";
 
 const isPhone =
   typeof window !== "undefined"
@@ -20,6 +23,7 @@ export default function Home() {
   const [matchpass, setMatchPass] = useState(Boolean);
   const { theme, setTheme } = useTheme();
   const [del, setDel] = useState(Boolean);
+  const { data: session, status } = useSession();
   //TODO add the damn gamepad support
   // const [gamepads, setGamepads] = useState<GamepadRef>({});
   // useGamepads(gamepads => setGamepads(gamepads));
@@ -60,6 +64,9 @@ export default function Home() {
         <MainMenu isMobile={isMobile} />
         <Toaster richColors position="top-center" />
       </main>
+      <div className="absolute animate-fade top-4 left-4">
+        {status === "authenticated"? <Stats setDel={setDel} playername={session.user?.name ?? ""} />: <Button onClick={() => {}}>Sign in</Button>}
+      </div>
       <div id="modetoggle" className="absolute animate-fade top-4 right-4">
       {day != "28" && month != "November"? <ModeToggle />: <></>}
     </div>
