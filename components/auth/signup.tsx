@@ -63,7 +63,6 @@ return (
   <TabsList className="grid w-full grid-cols-3">
     <TabsTrigger value="traditional">Traditional</TabsTrigger>
     <TabsTrigger value="SSO">SSO</TabsTrigger>
-    <TabsTrigger value="other">Other options</TabsTrigger>
   </TabsList>
   <TabsContent value="traditional">
     <div className="grid gap-4 py-4">
