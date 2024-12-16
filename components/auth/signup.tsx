@@ -1,7 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { IconBrandGoogle, IconBrandGithub, IconBrandOnlyfans } from "@tabler/icons-react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Input } from "@/components/ui/auth-input";
 import { Button } from "@/components/ui/button";
