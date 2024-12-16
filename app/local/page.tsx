@@ -1,11 +1,7 @@
 "use client";
-import { useState, useEffect, useContext, Suspense } from "react";
-import LoginForm from "@/components/auth/authui";
-import { Toaster, toast } from "sonner";
-import { Stats } from "@/components/menus/stats";
-import MainMenu from "@/components/menus/mainmenu";
+import { useState, useEffect, Suspense } from "react";
+import { Toaster } from "sonner";
 import { ModeToggle } from "@/components/modetoggle";
-import { useGamepads } from "react-ts-gamepads";
 import Local from "@/components/engines/localengine";
 import { useRouter } from "next/navigation";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
