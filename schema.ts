@@ -12,6 +12,15 @@ import {
    
   export const db = drizzle(sql)
    
+  export const profiles = pgTable("profile", {
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+      games: integer("games").notNull().default(0),
+      wins: integer("wins").notNull().default(0),
+      admin: boolean("admin").default(false),
+  })
+
   export const users = pgTable("user", {
     id: text("id")
       .primaryKey()
@@ -21,7 +30,8 @@ import {
     emailVerified: timestamp("emailVerified", { mode: "date" }),
     image: text("image"),
   })
-   
+  
+
   export const accounts = pgTable(
     "account",
     {
@@ -45,18 +55,6 @@ import {
       }),
     })
   )
-
-  export const profiles = pgTable("profile", {
-    userId: text("userId")
-      .notNull()
-      .references(() => users.id, {
-        onDelete: "cascade",
-      }),
-    name: text("name"),
-    picture: text("picture"),
-    games: integer("games"),
-    wins: integer("wins"),
-  })
    
   export const sessions = pgTable("session", {
     sessionToken: text("sessionToken").primaryKey(),

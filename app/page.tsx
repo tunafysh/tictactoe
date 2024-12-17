@@ -20,10 +20,7 @@ export default function Home() {
   const month = new Date().toLocaleString("en-US", { month: "long" });
   const day = new Date().toLocaleString("en-US", { day: "numeric" });
   const [isMobile] = useState(isPhone);
-  const [username, setUsername] = useState("");
-  const [matchpass, setMatchPass] = useState(Boolean);
   const { theme, setTheme } = useTheme();
-  const [del, setDel] = useState(Boolean);
   const { data: session, status } = useSession();
   const router = useRouter();
   //TODO add the damn gamepad support
@@ -35,29 +32,6 @@ export default function Home() {
   }, [day, month, setTheme])
 
   useEffect(() => {
-    if (del) {
-      fetch(window.location.href + "api/player", { method: "DELETE" })
-        .then((res) => res.text())
-        .then((text) => {
-          window.location.reload();
-        });
-    }
-  }, [del]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      fetch(window.location.href + "api/player", { method: "GET" })
-        .then((res) => res.text())
-        .then((text) => {
-          if (text != "") {
-            console.log(text);
-            setUsername(text);
-          } else {
-            console.log("not signed in.");
-            console.log(text);
-          }
-        });
-    }
   }, []);
 
   return (
@@ -66,7 +40,7 @@ export default function Home() {
         <MainMenu isMobile={isMobile} />
         <Toaster richColors position="top-center" />
       </main>
-        {status === "authenticated"? <Stats setDel={setDel} playername={session.user?.name ?? ""} />: <Button className="absolute top-4 left-4" onClick={() => {router.push("/login")}}>Sign in</Button>}
+        {status === "authenticated"? <Stats playername={session.user?.name ?? ""} id={session.user?.id ?? ""} />: <Button className="absolute top-4 left-4" onClick={() => {router.push("/login")}}>Sign in</Button>}
       <div id="modetoggle" className="absolute top-4 right-4">
       {day != "28" && month != "November"? <ModeToggle />: <></>}
     </div>

@@ -59,6 +59,7 @@ function checkWinner(
     ) {
       if (tileValue1 === PLAYER_X) {
         setGameState(gamestate.playerXWins);
+        //update the wins in db
         setStrikeClass(strikeClass + " bg-red-500");
       } else if (tileValue1 === PLAYER_O) {
         setGameState(gamestate.playerOWins);

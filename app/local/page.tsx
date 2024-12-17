@@ -5,6 +5,9 @@ import { ModeToggle } from "@/components/modetoggle";
 import Local from "@/components/engines/localengine";
 import { useRouter } from "next/navigation";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
+import { useSession } from "next-auth/react";
+import { db, profiles } from "@/schema";
+import { eq, sql } from "drizzle-orm";
 
 const isPhone =
   typeof window !== "undefined"
@@ -15,9 +18,7 @@ const isPhone =
 
 export default function Home() {
   const [isMobile] = useState(isPhone);
-  const [username, setUsername] = useState("");
-  const [matchpass, setMatchPass] = useState(Boolean);
-  const [del, setDel] = useState(Boolean);
+  const { data: session, status } = useSession();
   const router = useRouter()
   //TODO add the damn gamepad support
   // const [gamepads, setGamepads] = useState<GamepadRef>({});
@@ -25,28 +26,10 @@ export default function Home() {
 
 
   useEffect(() => {
-    if (del) {
-      fetch(window.location.href + "api/player", { method: "DELETE" })
-        .then((res) => res.text())
-        .then((text) => {
-          window.location.reload();
-        });
-    }
-  }, [del]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      fetch(window.location.href + "api/player", { method: "GET" })
-        .then((res) => res.text())
-        .then((text) => {
-          if (text != "") {
-            console.log(text);
-            setUsername(text);
-          } else {
-            console.log("not signed in.");
-            console.log(text);
-          }
-        });
+    if (session?.user && session.user.id) {
+      db.update(profiles)
+        .set({ games: sql`${profiles.games} + 1` })
+        .where(eq(profiles.userId, session.user.id));
     }
   }, []);
 

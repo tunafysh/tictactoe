@@ -45,12 +45,15 @@ if (Mode === "") {
   else{
     if(Mode == "single"){
       handleRedirect("singleplayer")
+      //db.inc(games)
     }
     if(Mode == "multi"){
       handleRedirect("multiplayer")
+
     }
     if(Mode == "local"){
       handleRedirect("local")
+
     }
 }
 }
