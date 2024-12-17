@@ -12,6 +12,7 @@ import {
   } from "@/components/ui/drawer"
 import { logout } from "@/app/actions"
 import { useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
 
 function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1)
@@ -19,8 +20,20 @@ function capitalize(str: string) {
 
 export function Stats ({ playername }: { playername: string, }) {
   const { data: session, status } = useSession();
-  const gamesPlayed = fetch("/api/stats?id=" + session?.user?.id + "&action=games", { method: "GET",}).then(res => res.json())
-  const gamesWon = fetch("/api/stats?id=" + session?.user?.id + "&action=wins", { method: "GET",}).then(res => res.json())
+  const [gamesPlayed, setGamesPlayed] = useState(0);
+  const [gamesWon, setGamesWon] = useState(0);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      await fetch("/api/stats?id=" + session?.user?.id + "&action=games", { method: "GET",}).then(res => res.json()).then(res => {
+        setGamesPlayed(res);
+      })
+      await fetch("/api/stats?id=" + session?.user?.id + "&action=wins", { method: "GET",}).then(res => res.json()).then(res => {
+        setGamesWon(res);
+      })
+    }
+    fetchStats();
+  }, [session]);
 
     return (
         <Drawer>
