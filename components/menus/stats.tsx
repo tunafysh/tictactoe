@@ -11,19 +11,16 @@ import {
     DrawerTrigger,
   } from "@/components/ui/drawer"
 import { logout } from "@/app/actions"
-import { db, profiles } from "@/schema";
-import { eq } from "drizzle-orm";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
 
 function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-export function Stats ({ playername, id }: { playername: string, id: string }) {
+export function Stats ({ playername }: { playername: string, }) {
   const { data: session, status } = useSession();
-  const gamesPlayed = fetch("/api/stats?id=" + id + "&action=games", { method: "GET",})
-  const gamesWon = fetch("/api/stats?id=" + id + "&action=wins", { method: "GET",})
+  const gamesPlayed = fetch("/api/stats?id=" + session?.user?.id + "&action=games", { method: "GET",})
+  const gamesWon = fetch("/api/stats?id=" + session?.user?.id + "&action=wins", { method: "GET",})
 
     return (
         <Drawer>
