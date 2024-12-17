@@ -27,11 +27,7 @@ export default function Home() {
 
 
   useEffect(() => {
-    if (session?.user && session.user.id) {
-      db.update(profiles)
-        .set({ games: sql`${profiles.games} + 1` })
-        .where(eq(profiles.userId, session.user.id));
-    }
+    fetch("/api/stats?id=" + session?.user?.id + "&action=games", { method: "POST",}).then(res => res.json()).then(res => console.log(res));
   }, []);
   return (
     <>
