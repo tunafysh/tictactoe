@@ -19,8 +19,8 @@ function capitalize(str: string) {
 
 export function Stats ({ playername }: { playername: string, }) {
   const { data: session, status } = useSession();
-  const gamesPlayed = fetch("/api/stats?id=" + session?.user?.id + "&action=games", { method: "GET",})
-  const gamesWon = fetch("/api/stats?id=" + session?.user?.id + "&action=wins", { method: "GET",})
+  const gamesPlayed = fetch("/api/stats?id=" + session?.user?.id + "&action=games", { method: "GET",}).then(res => res.json())
+  const gamesWon = fetch("/api/stats?id=" + session?.user?.id + "&action=wins", { method: "GET",}).then(res => res.json())
 
     return (
         <Drawer>
@@ -36,16 +36,16 @@ export function Stats ({ playername }: { playername: string, }) {
             <div className="grid grid-rows-3 grid-flow-col border-zinc-500 rounded">
                 <p>
                     <span className="font-bold">Games played: </span>
-                    <span className="text-slate-300">{gamesPlayed.then(res => res.json).then(res => res.games)}</span>
+                    <span className="text-slate-300">{gamesPlayed}</span>
                 </p>
                 <p>
                     <span className="font-bold">Games won: </span>
-                    <span className="text-slate-300">{gamesPlayed.then(res => res.json).then(res => res.games)}</span>
+                    <span className="text-slate-300">{gamesWon}</span>
                 </p>
                 <p>
                     <span className="font-bold">Games lost: </span>
                     {/* @ts-ignore */}
-                    <span className="text-slate-300">{gamesPlayed.then(res => res) - gamesWon.then(res => res)}</span>
+                    <span className="text-slate-300">{gamesPlayed - gamesWon}</span>
                 </p>
             </div>
             <DrawerFooter>
