@@ -23,5 +23,10 @@ export async function profileHandler(req: NextRequest) {
     }
 }
 
-export {profileHandler as GET}
-export {profileHandler as POST}
+export async function GET(req: NextRequest) {
+    return profileHandler(req)
+}
+
+export async function POST(req: NextRequest) {
+    return profileHandler(req)
+}
