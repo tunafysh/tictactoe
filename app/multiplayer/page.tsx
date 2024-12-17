@@ -28,7 +28,7 @@ export default function Home() {
 
   useEffect(() => {
     fetch("/api/stats?id=" + session?.user?.id + "&action=games", { method: "POST",}).then(res => res.json()).then(res => console.log(res));
-  }, []);
+  }, [session]);
   return (
     <>
       <main className="flex justify-center h-screen w-screen">
