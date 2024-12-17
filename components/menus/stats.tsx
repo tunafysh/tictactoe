@@ -36,11 +36,11 @@ export function Stats ({ playername }: { playername: string, }) {
             <div className="grid grid-rows-3 grid-flow-col border-zinc-500 rounded">
                 <p>
                     <span className="font-bold">Games played: </span>
-                    <span className="text-slate-300">{gamesPlayed.then(res => res.json()).then(res => res.games)}</span>
+                    <span className="text-slate-300">{gamesPlayed.then(res => res.json).then(res => res.games)}</span>
                 </p>
                 <p>
                     <span className="font-bold">Games won: </span>
-                    <span className="text-slate-300">{gamesPlayed.then(res => res.json()).then(res => res.games)}</span>
+                    <span className="text-slate-300">{gamesPlayed.then(res => res.json).then(res => res.games)}</span>
                 </p>
                 <p>
                     <span className="font-bold">Games lost: </span>

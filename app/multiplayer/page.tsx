@@ -27,8 +27,9 @@ export default function Home() {
 
 
   useEffect(() => {
-    if(session?.user?.id != undefined){
-      fetch("/api/stats?id=" +  + "&action=games", { method: "POST",}).then(res => res.json()).then(res => console.log(res));
+    const id = session?.user?.id
+    if(id != undefined){
+      fetch("/api/stats?id=" + id + "&action=games", { method: "POST",}).then(res => res.json()).then(res => console.log(res));
     }
   }, [session]);
   return (
