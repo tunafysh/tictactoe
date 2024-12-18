@@ -27,7 +27,7 @@ export function Stats ({ playername }: { playername: string, }) {
     if(session?.user?.id !== undefined){
 
       console.log(session?.user?.id);
-      fetch("/api/stats?id=" + session?.user?.id + "&action=games", { method: "GET",}).then(res => res.json()).then(res => {\
+      fetch("/api/stats?id=" + session?.user?.id + "&action=games", { method: "GET",}).then(res => res.json()).then(res => {
         console.log(res);
         setGamesPlayed(res);
       })
