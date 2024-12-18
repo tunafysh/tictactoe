@@ -45,7 +45,7 @@ export default function Home() {
       {day != "28" && month != "November"? <ModeToggle />: <></>}
     </div>
     <p className="absolute bottom-4 left-4 text-zinc-500">
-      Made with ♥️ by Hanan
+      Made with ♥️ by Hanan {session?.user?.id}
     </p>
     <p className="absolute bottom-4 right-4 text-zinc-500">Ver: 0.9.2</p>
     </>          
