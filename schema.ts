@@ -29,7 +29,7 @@ import {
     email: text("email").unique(),
     emailVerified: timestamp("emailVerified", { mode: "date" }),
     image: text("image"),
-    username: text("Username").unique(),
+    userid: serial("userid").notNull(),
   })
   
 
