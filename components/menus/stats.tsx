@@ -27,10 +27,12 @@ export function Stats ({ playername }: { playername: string, }) {
     if(session?.user?.id !== undefined){
 
       console.log(session?.user?.id);
-      fetch("/api/stats?id=" + session?.user?.id + "&action=games", { method: "GET",}).then(res => res.json()).then(res => {
+      fetch("/api/stats?id=" + session?.user?.id + "&action=games", { method: "GET",}).then(res => res.json()).then(res => {\
+        console.log(res);
         setGamesPlayed(res);
       })
       fetch("/api/stats?id=" + session?.user?.id + "&action=wins", { method: "GET",}).then(res => res.json()).then(res => {
+        console.log(res);
         setGamesWon(res);
       })
     }
@@ -49,6 +51,7 @@ export function Stats ({ playername }: { playername: string, }) {
             </DrawerHeader>
             <div className="grid grid-rows-3 grid-flow-col border-zinc-500 rounded">
                 <p>
+                    <span className="font-bold">{session?.user?.id}</span>
                     <span className="font-bold">Games played: </span>
                     <span className="text-slate-300">{gamesPlayed}</span>
                 </p>
