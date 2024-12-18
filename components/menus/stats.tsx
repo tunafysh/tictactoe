@@ -24,15 +24,16 @@ export function Stats ({ playername }: { playername: string, }) {
   const [gamesWon, setGamesWon] = useState(0);
 
   useEffect(() => {
-    const fetchStats = async () => {
-      await fetch("/api/stats?id=" + session?.user?.id + "&action=games", { method: "GET",}).then(res => res.json()).then(res => {
+    if(session?.user?.id !== undefined){
+
+      console.log(session?.user?.id);
+      fetch("/api/stats?id=" + session?.user?.id + "&action=games", { method: "GET",}).then(res => res.json()).then(res => {
         setGamesPlayed(res);
       })
-      await fetch("/api/stats?id=" + session?.user?.id + "&action=wins", { method: "GET",}).then(res => res.json()).then(res => {
+      fetch("/api/stats?id=" + session?.user?.id + "&action=wins", { method: "GET",}).then(res => res.json()).then(res => {
         setGamesWon(res);
       })
     }
-    fetchStats();
   }, [session]);
 
     return (
