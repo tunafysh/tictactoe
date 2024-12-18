@@ -23,12 +23,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <title>Tic Tac Toe</title>
       </head>
-      <body className={cn(
+      <body suppressHydrationWarning className={cn(
           "min-h-screen bg-background font-sans antialiased",
           inter.variable)}>
             <SessionProvider>

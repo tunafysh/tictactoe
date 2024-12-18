@@ -13,7 +13,7 @@ import {
   export const db = drizzle(sql)
    
   export const profiles = pgTable("profile", {
-    userId: text("userId")
+    userid: text("userid")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
       games: integer("games").notNull().default(0),
