@@ -14,12 +14,13 @@ import { logout } from "@/app/actions"
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import Router, { useRouter } from "next/navigation";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-export function Stats ({ playername }: { playername: string, }) {
+export function Stats ({ playername, image }: { playername: string, image: string | null | undefined }) {
   const { data: session, status } = useSession();
   const [gamesPlayed, setGamesPlayed] = useState(0);
   const [gamesWon, setGamesWon] = useState(0);
@@ -43,7 +44,10 @@ export function Stats ({ playername }: { playername: string, }) {
     return (
         <Drawer>
         <DrawerTrigger asChild>
-          <Button className="absolute top-4 left-4">My stats</Button>
+          {image !== null? (<Avatar className="absolute top-4 left-4">
+      <AvatarImage src={session?.user?.image ?? ""} alt={`@${session?.user?.name}`} />
+      <AvatarFallback>User</AvatarFallback>
+    </Avatar>):<Button className="absolute top-4 left-4">My stats</Button>}
         </DrawerTrigger>
         <DrawerContent>
           <div className="mx-auto w-full max-w-sm">

@@ -41,12 +41,7 @@ export default function Home() {
         <MainMenu isMobile={isMobile} />
         <Toaster richColors position="top-center" />
       </main>
-        {status === "authenticated"? session?.user?.image != null? 
-        (<Avatar className="absolute top-4 left-4">
-      <AvatarImage src={session?.user?.image} alt={`@${session?.user?.name}`} />
-      <AvatarFallback>User</AvatarFallback>
-    </Avatar>)
-     : <Stats playername={session.user?.name ?? ""} />: <Button className="absolute top-4 left-4" onClick={() => {router.push("/login")}}>Sign in</Button>}
+        {status === "authenticated"? <Stats playername={session.user?.name ?? ""} image={session?.user?.image} />: <Button className="absolute top-4 left-4" onClick={() => {router.push("/login")}}>Sign in</Button>}
       <div id="modetoggle" className="absolute top-4 right-4">
       {day != "28" && month != "November"? <ModeToggle />: <></>}
     </div>
