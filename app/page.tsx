@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Stats } from "@/components/menus/stats";
 import { useRouter } from "next/navigation";
+import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 
 const isPhone =
   typeof window !== "undefined"
@@ -40,14 +41,19 @@ export default function Home() {
         <MainMenu isMobile={isMobile} />
         <Toaster richColors position="top-center" />
       </main>
-        {status === "authenticated"? <Stats playername={session.user?.name ?? ""} />: <Button className="absolute top-4 left-4" onClick={() => {router.push("/login")}}>Sign in</Button>}
+        {status === "authenticated"? session?.user?.image != null? 
+        (<Avatar>
+      <AvatarImage src={session?.user?.image} alt={`@${session?.user?.name}`} />
+      <AvatarFallback>User</AvatarFallback>
+    </Avatar>)
+     : <Stats playername={session.user?.name ?? ""} />: <Button className="absolute top-4 left-4" onClick={() => {router.push("/login")}}>Sign in</Button>}
       <div id="modetoggle" className="absolute top-4 right-4">
       {day != "28" && month != "November"? <ModeToggle />: <></>}
     </div>
     <p className="absolute bottom-4 left-4 text-zinc-500">
-      Made with ♥️ by Hanan
+      Made with ♥️ by Hanan {session?.user?.id}
     </p>
-    <p className="absolute bottom-4 right-4 text-zinc-500">Ver: 0.9.2</p>
+    <p className="absolute bottom-4 right-4 text-zinc-500">Ver: 0.9.4</p>
     </>          
   );
 }

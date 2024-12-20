@@ -16,4 +16,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     experimental: {
         enableWebAuthn: true
     },
+    callbacks: {
+        session: async ({ session, user }) => {
+            session.user.id = user.id
+            return session
+        },
+        redirect: async ({ url, baseUrl }) => {
+            return baseUrl
+        }
+    }
 })

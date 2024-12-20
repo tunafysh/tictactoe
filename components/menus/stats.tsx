@@ -13,6 +13,7 @@ import {
 import { logout } from "@/app/actions"
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
+import Router, { useRouter } from "next/navigation";
 
 function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1)
@@ -22,6 +23,7 @@ export function Stats ({ playername }: { playername: string, }) {
   const { data: session, status } = useSession();
   const [gamesPlayed, setGamesPlayed] = useState(0);
   const [gamesWon, setGamesWon] = useState(0);
+  const router = useRouter()
 
   useEffect(() => {
     if(session?.user?.id !== undefined){
@@ -65,7 +67,10 @@ export function Stats ({ playername }: { playername: string, }) {
                 </p>
             </div>
             <DrawerFooter>
-              <Button variant="destructive" onClick={() => logout()}>Log Out</Button>
+              <Button variant="destructive" onClick={() => {
+                logout();
+                router.refresh();
+              }}>Log Out</Button>
               <DrawerClose asChild>
                 <Button variant="outline">Okay</Button>
               </DrawerClose>
