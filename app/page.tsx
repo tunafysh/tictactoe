@@ -42,7 +42,7 @@ export default function Home() {
         <Toaster richColors position="top-center" />
       </main>
         {status === "authenticated"? session?.user?.image != null? 
-        (<Avatar>
+        (<Avatar className="absolute top-4 left-4">
       <AvatarImage src={session?.user?.image} alt={`@${session?.user?.name}`} />
       <AvatarFallback>User</AvatarFallback>
     </Avatar>)
