@@ -36,7 +36,8 @@ export async function POST(req: NextRequest) {
     }
     else{
         let uid = await crosscheckIdToUserId(id)
-        let query = await db.update(profiles).set(action == "games" ? { games: sql`${profiles.games} + 1` } : { wins: sql`${profiles.wins} + 1` }).where(eq(profiles.userid, uid))
+        let currValue = sql<number>`${action == "games"? "games": "wins"} + 1`
+        let query = await db.update(profiles).set(action == "games" ? { games: currValue } : { wins: currValue }).where(eq(profiles.userid, uid))
         return NextResponse.json(query)
     }
 }
