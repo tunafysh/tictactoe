@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Stats } from "@/components/menus/stats";
 import { useRouter } from "next/navigation";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const isPhone =
   typeof window !== "undefined"
