@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { Toaster } from "sonner";
 import MainMenu from "@/components/menus/mainmenu";
 import { ModeToggle } from "@/components/modetoggle";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Stats } from "@/components/menus/stats";
 import { useRouter } from "next/navigation";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const isPhone =
   typeof window !== "undefined"
@@ -41,7 +42,9 @@ export default function Home() {
         <MainMenu isMobile={isMobile} />
         <Toaster richColors position="top-center" />
       </main>
+      <Suspense fallback={<Skeleton className="w-10 h-10 rounded-full"/>}>
         {status === "authenticated"? <Stats playername={session.user?.name ?? ""} image={session?.user?.image} />: <Button className="absolute top-4 left-4" onClick={() => {router.push("/login")}}>Sign in</Button>}
+      </Suspense>
       <div id="modetoggle" className="absolute top-4 right-4">
       {day != "28" && month != "November"? <ModeToggle />: <></>}
     </div>
