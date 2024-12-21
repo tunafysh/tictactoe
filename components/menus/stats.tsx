@@ -13,7 +13,7 @@ import {
 import { logout } from "@/app/actions"
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import Router, { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 function capitalize(str: string) {

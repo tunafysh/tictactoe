@@ -5,9 +5,7 @@ import { ModeToggle } from "@/components/modetoggle";
 import Single from "@/components/engines/singleengine";
 import { useRouter } from "next/navigation";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
-import { useSession } from "next-auth/react";
-import { db, profiles } from "@/schema";
-import { eq, sql } from "drizzle-orm";
+import { SimpleCookieBanner } from "@/components/ui/cookie";
 
 const isPhone =
   typeof window !== "undefined"
@@ -31,6 +29,9 @@ export default function Home() {
   return (
     <>
       <main className="flex justify-center h-screen w-screen">
+        <SimpleCookieBanner className="fixed bottom-8 right-8">
+          We use cookies just to store the games you played and your wins and nothing else, we don&apos;t track you, your data is useless to me.
+        </SimpleCookieBanner>
       <Suspense fallback={<p>Loading...</p>}>
       <Single isMobile={isMobile} />
       <button onClick={ () => router.push("/")} className="absolute animate-face top-4 left-4 w-5 h-5"><ArrowLeftIcon width={"25px"} height={"25px"} /></button>
