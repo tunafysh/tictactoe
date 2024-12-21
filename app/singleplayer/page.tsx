@@ -18,7 +18,6 @@ const isPhone =
 
 export default function Home() {
   const [isMobile] = useState(isPhone);
-  const { data: session, status } = useSession();
   const router = useRouter()
   //TODO add the damn gamepad support
   // const [gamepads, setGamepads] = useState<GamepadRef>({});
@@ -26,11 +25,8 @@ export default function Home() {
 
 
   useEffect(() => {
-    const id =session?.user?.id
-    if(id != undefined){
-      fetch("/api/stats?id=" + id + "&action=games", { method: "POST",}).then(res => res.json()).then(res => console.log(res));
-    }
-  }, [session]);
+      fetch("/api/stats?action=games", { method: "POST",});
+  }, []);
 
   return (
     <>
